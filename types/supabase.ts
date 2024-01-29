@@ -14,54 +14,54 @@ export interface Database {
           cardId: number
           categoryId: number
           description: string
-          engineType: string
-          fuelType: string
+          engineType: Database["public"]["Enums"]["car_engine_type"]
+          fuelType: Database["public"]["Enums"]["car_fuel_type"]
           horsepower: number
           images: string[]
           km: number
           kmPerLiterCity: number
           kmPerLiterHighway: number
-          make: string
+          manufacturerId: number
           model: string
           price: number
           torque: number
-          transmissionType: string
+          transmissionType: Database["public"]["Enums"]["car_transmission_type"]
           year: number
         }
         Insert: {
           cardId?: number
           categoryId: number
           description?: string
-          engineType?: string
-          fuelType?: string
+          engineType: Database["public"]["Enums"]["car_engine_type"]
+          fuelType: Database["public"]["Enums"]["car_fuel_type"]
           horsepower: number
           images: string[]
           km: number
           kmPerLiterCity: number
           kmPerLiterHighway: number
-          make?: string
+          manufacturerId: number
           model?: string
           price: number
           torque: number
-          transmissionType?: string
+          transmissionType: Database["public"]["Enums"]["car_transmission_type"]
           year: number
         }
         Update: {
           cardId?: number
           categoryId?: number
           description?: string
-          engineType?: string
-          fuelType?: string
+          engineType?: Database["public"]["Enums"]["car_engine_type"]
+          fuelType?: Database["public"]["Enums"]["car_fuel_type"]
           horsepower?: number
           images?: string[]
           km?: number
           kmPerLiterCity?: number
           kmPerLiterHighway?: number
-          make?: string
+          manufacturerId?: number
           model?: string
           price?: number
           torque?: number
-          transmissionType?: string
+          transmissionType?: Database["public"]["Enums"]["car_transmission_type"]
           year?: number
         }
         Relationships: [
@@ -71,6 +71,13 @@ export interface Database {
             isOneToOne: false
             referencedRelation: "Category"
             referencedColumns: ["categoryId"]
+          },
+          {
+            foreignKeyName: "Car_manufacturerId_fkey"
+            columns: ["manufacturerId"]
+            isOneToOne: false
+            referencedRelation: "Manufacturer"
+            referencedColumns: ["manufacturerId"]
           }
         ]
       }
@@ -89,6 +96,21 @@ export interface Database {
         }
         Relationships: []
       }
+      Manufacturer: {
+        Row: {
+          manufacturerId: number
+          name: string
+        }
+        Insert: {
+          manufacturerId?: number
+          name?: string
+        }
+        Update: {
+          manufacturerId?: number
+          name?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -97,7 +119,15 @@ export interface Database {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      car_engine_type: "Combustion" | "Electric" | "Hybrid"
+      car_fuel_type:
+        | "Diesel"
+        | "Petrol"
+        | "Hydrogen"
+        | "Electricity"
+        | "LPG"
+        | "Methane"
+      car_transmission_type: "Automatic" | "Manual"
     }
     CompositeTypes: {
       [_ in never]: never
