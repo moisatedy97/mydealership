@@ -1,6 +1,4 @@
-import { useLocale } from "next-intl";
 import { getTranslations } from "next-intl/server";
-import { usePathname, useRouter } from "../../../navigation";
 import Link from "next/link";
 
 export default async function Index() {
