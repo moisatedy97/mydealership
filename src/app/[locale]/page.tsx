@@ -18,6 +18,12 @@ export default async function Index() {
   if (data) {
     return (
       <>
+        <button
+          type="button"
+          className="inline-flex items-center gap-x-2 rounded-lg border border-transparent bg-blue-600 px-4 py-3 text-sm font-semibold text-white hover:bg-blue-700 disabled:pointer-events-none disabled:opacity-50 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+        >
+          Solid
+        </button>
         <h1 style={{ fontSize: "40px" }}>Homepage</h1>
         <br />
         <p style={{ fontSize: "40px" }}>{t("title")}</p>

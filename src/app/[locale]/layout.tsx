@@ -2,6 +2,7 @@ import type { Metadata, ResolvingMetadata } from "next";
 import { NextIntlClientProvider, useMessages } from "next-intl";
 import { Inter } from "next/font/google";
 import "../globals.css";
+import PrelineScript from "../components/PrelineScript";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -59,6 +60,7 @@ export default function RootLayout({ children, params: { locale } }: any) {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
         <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
       </body>
+      <PrelineScript />
     </html>
   );
 }
