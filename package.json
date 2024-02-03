@@ -11,7 +11,6 @@
     "lint": "next lint && npm run format:fix",
     "format": "prettier --check --ignore-path .gitignore .",
     "format:fix": "prettier --write --ignore-path .gitignore .",
-    "pre-commit-lint": "lint-staged",
     "prepare": "husky install"
   },
   "dependencies": {
@@ -38,7 +37,7 @@
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
     "husky": "^8.0.0",
-    "lint-staged": "^15.1.0",
+    "lint-staged": "^15.2.1",
     "postcss": "^8",
     "prettier": "^3.1.0",
     "prettier-plugin-tailwindcss": "^0.5.7",
