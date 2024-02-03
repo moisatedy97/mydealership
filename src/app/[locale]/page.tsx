@@ -3,7 +3,6 @@ import Link from "next/link";
 import supabaseServer from "@/supabase/config";
 import { QueryData, QueryError } from "@supabase/supabase-js";
 import Image from "next/image";
-import { ReactElement } from "react";
 
 export default async function Index() {
   const t = await getTranslations("index");
