@@ -6,7 +6,7 @@
     "dev": "next dev",
     "start": "next start",
     "build": "npm run lint && next build",
-    "update-types": "npx supabase gen types typescript --project-id oltnxwfawirzgljqsxwr > types/supabase.ts",
+    "update-types": "npx supabase gen types typescript --project-id $(grep NEXT_PUBLIC_SUPABASE_PROJECT_ID .env.local | cut -d '=' -f 2 | tr -d '[:space:]') > types/supabase.ts",
     "update": "git pull && npm install && npm run update-types",
     "lint": "eslint '*/**/*.{js,jsx,ts,tsx}' --quiet",
     "lint:fix": "eslint '*/**/*.{js,jsx,ts,tsx}' --fix",
