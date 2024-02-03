@@ -1,4 +1,4 @@
-import type { Metadata, ResolvingMetadata } from "next";
+import type { Metadata } from "next";
 import { NextIntlClientProvider, useMessages } from "next-intl";
 import { Inter } from "next/font/google";
 import "../globals.css";
@@ -20,7 +20,7 @@ type Props = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
-export async function generateMetadata({ params, searchParams }: Props, parent: ResolvingMetadata): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `My Dealership | audi a 5`,
     description: `bla bla bla`,

@@ -1,9 +1,10 @@
+/* eslint no-unused-vars: 0 */ // --> OFF
 "use client";
 
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
-
 import { IStaticMethods } from "preline/preline";
+
 declare global {
   interface Window {
     HSStaticMethods: IStaticMethods;
