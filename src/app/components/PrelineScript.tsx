@@ -1,4 +1,4 @@
-/* eslint no-unused-vars: 0 */ // --> OFF
+/* eslint unused-imports/no-unused-imports: 0 */ // --> OFF
 "use client";
 
 import { usePathname } from "next/navigation";
