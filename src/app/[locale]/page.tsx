@@ -34,7 +34,7 @@ export default async function Index() {
           {data.map((car, index) => {
             return (
               <div key={index}>
-                <p>{car.cardId}</p>
+                <p>{car.carId}</p>
                 <p>{car.model}</p>
                 <p>{car.horsepower}</p>
                 <p>{car.engineType}</p>
