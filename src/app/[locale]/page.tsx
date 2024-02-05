@@ -1,5 +1,6 @@
 import { getTranslations } from "next-intl/server";
-import { QueryData, QueryError } from "@supabase/supabase-js";
+
+import { AuthError, Session } from "@supabase/supabase-js";
 import supabaseServer from "@/supabase/config";
 import Hero from "../components/hero";
 import Main from "../components/main";
@@ -7,14 +8,14 @@ import Main from "../components/main";
 export default async function Index() {
   const t = await getTranslations("index");
 
-  const query = supabaseServer().from("Car").select("*");
-  const { data, error }: { data: QueryData<typeof query> | null; error: QueryError | null } = await query;
+  const { data, error }: { data: { session: Session | null }; error: AuthError | null } =
+    await supabaseServer().auth.getSession();
 
   if (error) {
     throw error;
   }
 
-  if (data) {
+  if (data.session) {
     return (
       <>
         <Hero />
