@@ -7,13 +7,9 @@ import { z } from "zod";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import { AuthResponse, AuthTokenResponsePassword } from "@supabase/supabase-js";
-import { authForm } from "@/interfaces/auth-interface";
+import { authFormSchema } from "@/interfaces/auth-interface";
+import { AuthActionEnum } from "@/utils/enums";
 import { Database } from "../../../../../types/supabase";
-
-export enum AuthActionEnum {
-  LOGIN = "login",
-  REGISTER = "register",
-}
 
 export default function AuthForm(): ReactElement {
   const supabase = createClientComponentClient<Database>();
@@ -22,10 +18,10 @@ export default function AuthForm(): ReactElement {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<AuthForm>({ resolver: zodResolver(authForm) });
+  } = useForm<AuthForm>({ resolver: zodResolver(authFormSchema) });
   const [authAction, setAuthAction] = useState<AuthActionEnum>(AuthActionEnum.LOGIN);
 
-  const onSubmit: SubmitHandler<AuthForm> = async (values: z.infer<typeof authForm>) => {
+  const onSubmit: SubmitHandler<AuthForm> = async (values: z.infer<typeof authFormSchema>) => {
     const authCredentials: AuthForm = { email: values.email, password: values.password };
     const { error } =
       authAction === AuthActionEnum.LOGIN

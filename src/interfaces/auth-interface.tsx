@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const authForm = z.object({
+export const authFormSchema = z.object({
   email: z.string().email({
     message: "Must be a valid email.",
   }),
@@ -9,4 +9,4 @@ export const authForm = z.object({
   }),
 });
 
-export type AuthForm = z.infer<typeof authForm>;
+export type AuthForm = z.infer<typeof authFormSchema>;

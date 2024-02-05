@@ -1,20 +1,19 @@
 import { getTranslations } from "next-intl/server";
 import Link from "next/link";
-import { QueryData, QueryError } from "@supabase/supabase-js";
-import Image from "next/image";
+import { AuthError, Session } from "@supabase/supabase-js";
 import supabaseServer from "@/supabase/config";
 
 export default async function Index() {
   const t = await getTranslations("index");
 
-  const query = supabaseServer().from("Car").select("*");
-  const { data, error }: { data: QueryData<typeof query> | null; error: QueryError | null } = await query;
+  const { data, error }: { data: { session: Session | null }; error: AuthError | null } =
+    await supabaseServer().auth.getSession();
 
   if (error) {
     throw error;
   }
 
-  if (data) {
+  if (data.session) {
     return (
       <>
         <h1 style={{ fontSize: "40px" }}>Homepage</h1>
@@ -30,7 +29,7 @@ export default async function Index() {
           <Link href="/en">traduci in inglese</Link>
         </button>
 
-        <main className="flex min-h-screen flex-col items-center justify-between p-24">
+        {/* <main className="flex min-h-screen flex-col items-center justify-between p-24">
           {data.map((car, index) => {
             return (
               <div key={index}>
@@ -51,7 +50,7 @@ export default async function Index() {
               </div>
             );
           })}
-        </main>
+        </main> */}
       </>
     );
   }
