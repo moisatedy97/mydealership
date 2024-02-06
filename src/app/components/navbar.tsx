@@ -1,4 +1,9 @@
-import React from "react";
+"use client";
+
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import React, { ReactElement } from "react";
+import { useRouter } from "next/navigation";
+import { Database } from "../../../types/supabase";
 
 const Navbar = () => {
   return (
@@ -92,7 +97,7 @@ const Navbar = () => {
                 <a>Settings</a>
               </li>
               <li>
-                <a>Logout</a>
+                <LogoutButton />
               </li>
             </ul>
           </div>
@@ -103,3 +108,20 @@ const Navbar = () => {
 };
 
 export default Navbar;
+
+const LogoutButton = (): ReactElement => {
+  const router = useRouter();
+  const supabase = createClientComponentClient<Database>();
+
+  const handleLogoutOnClick = async () => {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      throw error;
+    }
+
+    router.refresh();
+  };
+
+  return <a onClick={handleLogoutOnClick}>Logout</a>;
+};
