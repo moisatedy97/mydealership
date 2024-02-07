@@ -1,6 +1,8 @@
-import React from "react";
+"use client";
 
-const Cars = () => {
+import React, { ReactElement } from "react";
+
+const Cars = (): ReactElement => {
   return <div>Cars</div>;
 };
 
