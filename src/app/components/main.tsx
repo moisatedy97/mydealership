@@ -1,37 +1,11 @@
 import React from "react";
+import Image from "next/image";
+import Link from "next/link";
 
-const Main = () => {
+export default function Main() {
   return (
     <>
-      <div className="grid gap-4 p-4 md:grid-cols-2 ">
-        <div className="card image-full bg-base-100 shadow-xl">
-          <figure>
-            <img
-              src="https://newsroom.porsche.com/.imaging/mte/porsche-templating-theme/image_1290x726/dam/CH-local/2023/Unternehmen/Auslieferungen-2023/Macan-GTS.jpeg/jcr:content/Macan%20GTS.jpeg"
-              alt="Shoes"
-            />
-          </figure>
-          <div className="card-body">
-            <h2 className="card-title">Shoes!</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
-            <div className="card-actions justify-end">
-              <button className="btn btn-primary">Buy Now</button>
-            </div>
-          </div>
-        </div>
-        <div className="card image-full bg-base-100 shadow-xl">
-          <figure>
-            <img src="https://www.autotecnica.org/wp-content/uploads/2016/09/A169159_medium.jpg" alt="Shoes" />
-          </figure>
-          <div className="card-body">
-            <h2 className="card-title">Shoes!</h2>
-            <p>If a dog chews shoes whose shoes does he choose?</p>
-            <div className="card-actions justify-end">
-              <button className="btn btn-primary">Buy Now</button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <CardSection />
       <div className="container mx-auto max-w-2xl space-y-10 py-20 text-center">
         <div>
           <h1 className="text-4xl font-extrabold">Garlic bread with cheese: What the science tells us</h1>
@@ -79,6 +53,67 @@ const Main = () => {
       </div>
     </>
   );
-};
+}
 
-export default Main;
+const CardSection = () => {
+  type Card = {
+    image: {
+      src: string;
+      alt: string;
+    };
+    title: string;
+    sentence: string;
+    link: {
+      title: string;
+      href: string;
+    };
+  };
+
+  const cards: Card[] = [
+    {
+      image: {
+        src: "",
+        alt: "dd",
+      },
+      title: "Shoes",
+      sentence: "If a dog chews shoes whose shoes does he choose?",
+      link: {
+        title: "ddd",
+        href: "fff",
+      },
+    },
+    {
+      image: {
+        src: "",
+        alt: "dd",
+      },
+      title: "Shoes",
+      sentence: "If a dog chews shoes whose shoes does he choose?",
+      link: {
+        title: "ddd",
+        href: "fff",
+      },
+    },
+  ];
+
+  return (
+    <div className="grid gap-4 p-4 md:grid-cols-2">
+      {cards.map((element: Card, index: number) => (
+        <div className="card image-full bg-base-100 shadow-xl" key={index}>
+          <figure>
+            <Image src={element.image.src} width={1080} height={1080} alt={element.image.alt} />
+          </figure>
+          <div className="card-body">
+            <h2 className="card-title text-5xl  font-extrabold">{element.title}</h2>
+            <p className="text-xl">{element.sentence}</p>
+            <div className="card-actions justify-end">
+              <Link className="btn btn-primary" href={element.link.href} rel="canonical">
+                {element.link.title}
+              </Link>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};

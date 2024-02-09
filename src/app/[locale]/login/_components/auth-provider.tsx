@@ -42,7 +42,12 @@ export default function AuthProvider() {
     <div>
       {EnabledProviders.map((provider: Provider, index: number) => {
         return (
-          <button key={index} className="btn btn-neutral" value={provider} onClick={handleAuthProviderOnClick}>
+          <button
+            key={index}
+            className="btn-dark btn btn-outline rounded-full"
+            value={provider}
+            onClick={handleAuthProviderOnClick}
+          >
             {provider}
           </button>
         );
