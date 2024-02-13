@@ -50,8 +50,8 @@ export default function AuthForm(): ReactElement {
   };
 
   return (
-    <Container size="1" className="min-h-screen">
-      <Card>
+    <Container className="fixed left-0 top-0 flex h-full w-full items-center justify-center bg-gradient-to-t from-lime-300 to-slate-50">
+      <Card className="mx-auto  w-full max-w-xs">
         <div className="flex flex-col gap-2">
           <Heading size="6" as="h1">
             Login

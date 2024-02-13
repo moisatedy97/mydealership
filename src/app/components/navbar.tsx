@@ -1,7 +1,9 @@
+"use client";
+import { Button, DropdownMenu, Select } from "@radix-ui/themes";
 import Link from "next/link";
-import React from "react";
+import { ReactElement } from "react";
 
-export default function Navbar() {
+export default function Navbar(): ReactElement {
   type NavigationMenu = {
     name: string;
     href: string;
@@ -19,74 +21,51 @@ export default function Navbar() {
   ];
 
   return (
-    <>
-      <div className="navbar bg-base-100">
-        <div className="navbar-start">
-          <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-              <MobileMenuIcon />
-            </div>
-            <ul
-              tabIndex={0}
-              className="menu dropdown-content menu-sm rounded-box bg-base-100 z-[1] mt-3 w-52 p-2 shadow"
-            >
-              {navigation.map((element: NavigationMenu, index: number) => (
-                <li key={index}>
-                  <Link href={element.href} rel="canonical">
-                    {element.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <a className="btn btn-ghost text-xl">MyDealership</a>
-        </div>
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-            {navigation.map((element: NavigationMenu, index: number) => (
-              <li key={index}>
-                <Link href={element.href} rel="canonical">
-                  {element.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="navbar-end">
-          <ProfileIcon />
-        </div>
+    <nav className="sticky top-0 z-50 mb-5 flex h-16 items-center justify-center border-b border-lime-200 bg-white/80 backdrop-blur-sm">
+      <div className="flex  items-center gap-3">
+        <div className="h-10 w-10 rounded-full bg-slate-100"></div>
+        {navigation.map((item: NavigationMenu, index: number) => (
+          <Button variant="soft" asChild key={index}>
+            <Link href={item.href}>{item.name}</Link>
+          </Button>
+        ))}
+        <ProfileButton />
+        <LanguageSelector />
       </div>
-    </>
+    </nav>
   );
 }
 
-const ProfileIcon = () => {
+const ProfileButton = (): ReactElement => {
   return (
-    <div className="dropdown dropdown-end">
-      <div tabIndex={0} role="button" className="avatar btn btn-circle btn-ghost">
-        <div className="w-10 rounded-full">
-          <img
-            alt="Tailwind CSS Navbar component"
-            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-          />
-        </div>
-      </div>
-      <ul tabIndex={0} className="menu dropdown-content menu-sm rounded-box bg-base-100 z-[1] mt-3 w-52 p-2 shadow">
-        <li>
-          <a>Settings</a>
-        </li>
-        <li>
-          <a>Logout</a>
-        </li>
-      </ul>
-    </div>
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger>
+        <Button variant="outline">Profile</Button>
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Content>
+        <DropdownMenu.Item shortcut="⌘ E">Edit</DropdownMenu.Item>
+        <DropdownMenu.Item shortcut="⌘ D">Duplicate</DropdownMenu.Item>
+        <DropdownMenu.Item shortcut="⌘ N">Archive</DropdownMenu.Item>
+        <DropdownMenu.Separator />
+        <DropdownMenu.Item shortcut="⌘ ⌫" color="red">
+          Delete
+        </DropdownMenu.Item>
+      </DropdownMenu.Content>
+    </DropdownMenu.Root>
   );
 };
 
-const MobileMenuIcon = () => {
+const LanguageSelector = (): ReactElement => {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
-    </svg>
+    <Select.Root defaultValue="it">
+      <Select.Trigger />
+      <Select.Content>
+        <Select.Group>
+          <Select.Label>Languge</Select.Label>
+          <Select.Item value="it">it</Select.Item>
+          <Select.Item value="en">en</Select.Item>
+        </Select.Group>
+      </Select.Content>
+    </Select.Root>
   );
 };
