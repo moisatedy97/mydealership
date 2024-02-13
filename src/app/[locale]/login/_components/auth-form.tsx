@@ -7,9 +7,11 @@ import { z } from "zod";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import { AuthResponse, AuthTokenResponsePassword } from "@supabase/supabase-js";
-import { authFormSchema } from "@/interfaces/auth-interface";
+import { Button, Card, Container, Heading, Text, TextField } from "@radix-ui/themes";
+import { authFormSchema, AuthFormType } from "@/interfaces/auth-interface";
 import { AuthActionEnum } from "@/utils/enums";
 import { Database } from "../../../../../types/supabase";
+import AuthProvider from "./auth-provider";
 
 export default function AuthForm(): ReactElement {
   const supabase = createClientComponentClient<Database>();
@@ -18,11 +20,11 @@ export default function AuthForm(): ReactElement {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<AuthForm>({ resolver: zodResolver(authFormSchema) });
+  } = useForm<AuthFormType>({ resolver: zodResolver(authFormSchema) });
   const [authAction, setAuthAction] = useState<AuthActionEnum>(AuthActionEnum.LOGIN);
 
-  const onSubmit: SubmitHandler<AuthForm> = async (values: z.infer<typeof authFormSchema>) => {
-    const authCredentials: AuthForm = { email: values.email, password: values.password };
+  const onSubmit: SubmitHandler<AuthFormType> = async (values: z.infer<typeof authFormSchema>) => {
+    const authCredentials: AuthFormType = { email: values.email, password: values.password };
     const { error } =
       authAction === AuthActionEnum.LOGIN
         ? await onSubmitLogin(authCredentials)
@@ -36,34 +38,50 @@ export default function AuthForm(): ReactElement {
     }
   };
 
-  const onSubmitLogin = async (authCredentials: AuthForm): Promise<AuthTokenResponsePassword> => {
+  const onSubmitLogin = async (authCredentials: AuthFormType): Promise<AuthTokenResponsePassword> => {
     console.log("login");
 
     return await supabase.auth.signInWithPassword(authCredentials);
   };
 
-  const onSubmitRegister = async (authCredentials: AuthForm): Promise<AuthResponse> => {
+  const onSubmitRegister = async (authCredentials: AuthFormType): Promise<AuthResponse> => {
     console.log("register");
     return await supabase.auth.signUp(authCredentials);
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col">
-      <input type="text" placeholder="E-mail" className="input input-bordered w-full max-w-xs" {...register("email")} />
-      {errors.email && <span>{errors.email.message}</span>}
-      <input
-        type="password"
-        placeholder="Password"
-        className="input input-bordered w-full max-w-xs"
-        {...register("password")}
-      />
-      {errors.password && <span>{errors.password.message}</span>}
-      <button type="submit" className="btn" onClick={() => setAuthAction(AuthActionEnum.LOGIN)}>
-        Submit
-      </button>
-      <button type="submit" className="btn" onClick={() => setAuthAction(AuthActionEnum.REGISTER)}>
-        Register
-      </button>
-    </form>
+    <Container size="1" className="min-h-screen">
+      <Card>
+        <div className="flex flex-col gap-2">
+          <Heading size="6" as="h1">
+            Login
+          </Heading>
+          <Text color="gray">Login to our platform</Text>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div>
+              <Text as="label" size="1" weight={"medium"}>
+                Email
+              </Text>
+              <TextField.Input placeholder="Enter your email" required {...register("email")} />
+            </div>
+            <div>
+              <Text as="label" size="1" weight={"medium"} required {...register("password")}>
+                Password
+              </Text>
+              <TextField.Input placeholder="Enter your password" />
+            </div>
+            <div className="mt-4 flex flex-col gap-2">
+              <Button variant="solid" className="w-full" onClick={() => setAuthAction(AuthActionEnum.LOGIN)}>
+                Login
+              </Button>
+              <Button variant="soft" className="w-full" onClick={() => setAuthAction(AuthActionEnum.REGISTER)}>
+                Register
+              </Button>
+              <AuthProvider />
+            </div>
+          </form>
+        </div>
+      </Card>
+    </Container>
   );
 }
