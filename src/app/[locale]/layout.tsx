@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { NextIntlClientProvider, useMessages } from "next-intl";
 import { Inter } from "next/font/google";
+import "@radix-ui/themes/styles.css";
+import { Theme } from "@radix-ui/themes";
 import "../globals.css";
-import Navbar from "../components/navbar";
-import Footer from "../components/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -59,11 +59,13 @@ export default function RootLayout({ children, params: { locale } }: any) {
     <html lang={locale} suppressHydrationWarning={true} data-theme="corporate">
       <body className={inter.className}>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-        <NextIntlClientProvider messages={messages}>
-          <Navbar />
-          {children}
-          <Footer />
-        </NextIntlClientProvider>
+        <Theme accentColor="lime" radius="full">
+          <NextIntlClientProvider messages={messages}>
+            {/* <Navbar /> */}
+            {children}
+            {/* <Footer /> */}
+          </NextIntlClientProvider>
+        </Theme>
       </body>
     </html>
   );

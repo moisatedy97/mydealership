@@ -7,6 +7,7 @@ import { z } from "zod";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import { AuthResponse, AuthTokenResponsePassword } from "@supabase/supabase-js";
+import { Button, Card, Container, Heading, Text, TextField } from "@radix-ui/themes";
 import { authFormSchema, AuthFormType } from "@/interfaces/auth-interface";
 import { AuthActionEnum } from "@/utils/enums";
 import { Database } from "../../../../../types/supabase";
@@ -49,52 +50,38 @@ export default function AuthForm(): ReactElement {
   };
 
   return (
-    <div
-      className="hero min-h-screen bg-base-200"
-      style={{
-        backgroundImage: "url(https://www.mlaworld.com/wp-content/uploads/2021/10/strada-route-66.jpg)",
-      }}
-    >
-      <div className="hero-overlay bg-opacity-60"></div>
-      <div className="card rounded-2xl bg-base-100">
-        <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
-          <h1 className="text-3xl font-bold">Login</h1>
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Email</span>
-            </label>
-            <input type="email" placeholder="email" className="input input-bordered" required {...register("email")} />
-            {errors.email && <span>{errors.email.message}</span>}
-          </div>
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Password</span>
-            </label>
-            <input
-              type="password"
-              placeholder="password"
-              className="input input-bordered"
-              required
-              {...register("password")}
-            />
-            {errors.password && <span>{errors.password.message}</span>}
-          </div>
-          <div className="form-control mt-6 flex flex-row gap-x-2">
-            <button className="btn btn-primary grow rounded-full" onClick={() => setAuthAction(AuthActionEnum.LOGIN)}>
-              Login
-            </button>
-            <AuthProvider />
-          </div>
-          <div className="form-control">
-            <button
-              className="btn btn-outline btn-secondary  rounded-full"
-              onClick={() => setAuthAction(AuthActionEnum.REGISTER)}
-            >
-              Register
-            </button>
-          </div>
-        </form>
-      </div>
-    </div>
+    <Container size="1" className="min-h-screen">
+      <Card>
+        <div className="flex flex-col gap-2">
+          <Heading size="6" as="h1">
+            Login
+          </Heading>
+          <Text color="gray">Login to our platform</Text>
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <div>
+              <Text as="label" size="1" weight={"medium"}>
+                Email
+              </Text>
+              <TextField.Input placeholder="Enter your email" required {...register("email")} />
+            </div>
+            <div>
+              <Text as="label" size="1" weight={"medium"} required {...register("password")}>
+                Password
+              </Text>
+              <TextField.Input placeholder="Enter your password" />
+            </div>
+            <div className="mt-4 flex flex-col gap-2">
+              <Button variant="solid" className="w-full" onClick={() => setAuthAction(AuthActionEnum.LOGIN)}>
+                Login
+              </Button>
+              <Button variant="soft" className="w-full" onClick={() => setAuthAction(AuthActionEnum.REGISTER)}>
+                Register
+              </Button>
+              <AuthProvider />
+            </div>
+          </form>
+        </div>
+      </Card>
+    </Container>
   );
 }
