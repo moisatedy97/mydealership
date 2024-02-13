@@ -9,4 +9,4 @@ export const authFormSchema = z.object({
   }),
 });
 
-export type AuthForm = z.infer<typeof authFormSchema>;
+export type AuthFormType = z.infer<typeof authFormSchema>;

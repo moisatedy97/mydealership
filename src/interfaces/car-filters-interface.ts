@@ -18,4 +18,4 @@ export const carFiltersSchema = z.object({
   category: z.string(),
 });
 
-export type CarFilters = z.infer<typeof carFiltersSchema>;
+export type CarFiltersType = z.infer<typeof carFiltersSchema>;

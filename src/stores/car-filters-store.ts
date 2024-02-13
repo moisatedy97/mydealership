@@ -1,13 +1,13 @@
 import { create } from "zustand";
 import { produce } from "immer";
-import { CarFilters } from "@/interfaces/car-filters-interface";
+import { CarFiltersType } from "@/interfaces/car-filters-interface";
 import { Enums } from "../../types/database.types";
 
-type CarFiltersStore = {
-  carFilters: CarFilters | null;
+export type CarFiltersStore = {
+  carFilters: CarFiltersType | null;
 };
 
-type CarFiltersActions = {
+export type CarFiltersActions = {
   setCarFilterManufacturer: (manufacturer: string) => void;
   setCarFilterModel: (model: string) => void;
   setCarFilterYear: (year: number) => void;
@@ -24,7 +24,7 @@ type CarFiltersActions = {
   setCarFilterCategory: (category: string) => void;
 };
 
-export const useProfileStore = create<CarFiltersStore & CarFiltersActions>()((set) => {
+export const useCarFiltersStore = create<CarFiltersStore & CarFiltersActions>()((set) => {
   return {
     carFilters: null,
     setCarFilterManufacturer: (manufacturer: string) =>

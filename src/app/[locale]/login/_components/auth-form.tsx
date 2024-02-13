@@ -7,7 +7,7 @@ import { z } from "zod";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { useRouter } from "next/navigation";
 import { AuthResponse, AuthTokenResponsePassword } from "@supabase/supabase-js";
-import { authFormSchema } from "@/interfaces/auth-interface";
+import { authFormSchema, AuthFormType } from "@/interfaces/auth-interface";
 import { AuthActionEnum } from "@/utils/enums";
 import { Database } from "../../../../../types/supabase";
 
@@ -18,11 +18,11 @@ export default function AuthForm(): ReactElement {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<AuthForm>({ resolver: zodResolver(authFormSchema) });
+  } = useForm<AuthFormType>({ resolver: zodResolver(authFormSchema) });
   const [authAction, setAuthAction] = useState<AuthActionEnum>(AuthActionEnum.LOGIN);
 
-  const onSubmit: SubmitHandler<AuthForm> = async (values: z.infer<typeof authFormSchema>) => {
-    const authCredentials: AuthForm = { email: values.email, password: values.password };
+  const onSubmit: SubmitHandler<AuthFormType> = async (values: z.infer<typeof authFormSchema>) => {
+    const authCredentials: AuthFormType = { email: values.email, password: values.password };
     const { error } =
       authAction === AuthActionEnum.LOGIN
         ? await onSubmitLogin(authCredentials)
@@ -36,13 +36,13 @@ export default function AuthForm(): ReactElement {
     }
   };
 
-  const onSubmitLogin = async (authCredentials: AuthForm): Promise<AuthTokenResponsePassword> => {
+  const onSubmitLogin = async (authCredentials: AuthFormType): Promise<AuthTokenResponsePassword> => {
     console.log("login");
 
     return await supabase.auth.signInWithPassword(authCredentials);
   };
 
-  const onSubmitRegister = async (authCredentials: AuthForm): Promise<AuthResponse> => {
+  const onSubmitRegister = async (authCredentials: AuthFormType): Promise<AuthResponse> => {
     console.log("register");
     return await supabase.auth.signUp(authCredentials);
   };

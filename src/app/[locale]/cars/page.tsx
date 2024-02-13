@@ -1,9 +1,6 @@
-"use client";
-
 import React, { ReactElement } from "react";
+import Filters from "./filters";
 
-const Cars = (): ReactElement => {
-  return <div>Cars</div>;
-};
-
-export default Cars;
+export default function Cars(): ReactElement {
+  return <Filters />;
+}
