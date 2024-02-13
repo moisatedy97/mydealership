@@ -1,9 +1,8 @@
-import React, { ReactElement } from "react";
-import { redirect } from "next/navigation";
 import { AuthError, Session } from "@supabase/supabase-js";
+import { redirect } from "next/navigation";
+import { ReactElement } from "react";
 import supabaseServer from "@/supabase/config";
 import AuthForm from "./_components/auth-form";
-import AuthProvider from "./_components/auth-provider";
 
 export default async function page(): Promise<ReactElement | undefined> {
   const { data, error }: { data: { session: Session | null }; error: AuthError | null } =
@@ -19,7 +18,6 @@ export default async function page(): Promise<ReactElement | undefined> {
     return (
       <main>
         <AuthForm />
-        <AuthProvider />
       </main>
     );
   }
