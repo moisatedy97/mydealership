@@ -9,12 +9,12 @@ export default function Navbar() {
 
   const navigation: NavigationMenu[] = [
     {
-      name: "Page 1",
-      href: "/fakelink",
+      name: "Home",
+      href: "/",
     },
     {
-      name: "Page 2",
-      href: "/fakelink",
+      name: "Login",
+      href: "/login",
     },
   ];
 
@@ -28,7 +28,7 @@ export default function Navbar() {
             </div>
             <ul
               tabIndex={0}
-              className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow"
+              className="menu dropdown-content menu-sm rounded-box bg-base-100 z-[1] mt-3 w-52 p-2 shadow"
             >
               {navigation.map((element: NavigationMenu, index: number) => (
                 <li key={index}>
@@ -71,7 +71,7 @@ const ProfileIcon = () => {
           />
         </div>
       </div>
-      <ul tabIndex={0} className="menu dropdown-content menu-sm z-[1] mt-3 w-52 rounded-box bg-base-100 p-2 shadow">
+      <ul tabIndex={0} className="menu dropdown-content menu-sm rounded-box bg-base-100 z-[1] mt-3 w-52 p-2 shadow">
         <li>
           <a>Settings</a>
         </li>

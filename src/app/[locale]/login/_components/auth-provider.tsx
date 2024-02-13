@@ -4,6 +4,7 @@ import { AuthError, Provider } from "@supabase/supabase-js";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import React from "react";
 import { usePathname } from "next/navigation";
+import { Button } from "@radix-ui/themes";
 import { EnabledProviders } from "@/utils/constants";
 import { Database } from "../../../../../types/supabase";
 
@@ -42,14 +43,9 @@ export default function AuthProvider() {
     <div>
       {EnabledProviders.map((provider: Provider, index: number) => {
         return (
-          <button
-            key={index}
-            className="btn-dark btn btn-outline rounded-full"
-            value={provider}
-            onClick={handleAuthProviderOnClick}
-          >
+          <Button variant="outline" key={index} value={provider} onClick={handleAuthProviderOnClick}>
             {provider}
-          </button>
+          </Button>
         );
       })}
     </div>
