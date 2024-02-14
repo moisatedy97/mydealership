@@ -13,7 +13,7 @@ import { createRangeFiltersSchema } from "./range-filter-interface";
 
 export const carFiltersSchema = z.object({
   manufacturer: z.number(),
-  model: z.string(),
+  model: z.number(),
   year: createRangeFiltersSchema(YearRangeTypes.from, YearRangeTypes.to),
   price: createRangeFiltersSchema(PriceRangeTypes.from, PriceRangeTypes.to),
   horsepower: createRangeFiltersSchema(HorsepowerRangeTypes.from, HorsepowerRangeTypes.to),

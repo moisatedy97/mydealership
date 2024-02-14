@@ -25,7 +25,7 @@ export const TorqueRangeTypes: RangeFiltersType = {
 };
 export const KmRangeTypes: RangeFiltersType = {
   from: 0,
-  to: 2 * Math.pow(10, 7),
+  to: 2 * Math.pow(10, 6),
 };
 export const KmPerLiterCityRangeTypes: RangeFiltersType = {
   from: 0,

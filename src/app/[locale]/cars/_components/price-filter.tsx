@@ -20,7 +20,7 @@ export default function PriceFilter(): ReactElement {
 
   return (
     <div>
-      <div>{`${price ? price.from : PriceRangeTypes.from} - ${price ? price.to : PriceRangeTypes.to}`}</div>
+      <div>{`Price ${price ? price.from : PriceRangeTypes.from} - ${price ? price.to : PriceRangeTypes.to}`}</div>
       <Slider
         min={PriceRangeTypes.from}
         max={PriceRangeTypes.to}

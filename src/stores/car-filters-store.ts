@@ -10,7 +10,7 @@ export type CarFiltersStore = {
 
 export type CarFiltersActions = {
   setCarFilterManufacturer: (manufacturer: number) => void;
-  setCarFilterModel: (model: string) => void;
+  setCarFilterModel: (model: number) => void;
   setCarFilterYearRange: (year: RangeFiltersType) => void;
   setCarFilterPriceRange: (price: RangeFiltersType) => void;
   setCarFilterHorsepowerRange: (horsepower: RangeFiltersType) => void;
@@ -34,7 +34,7 @@ export const useCarFiltersStore = create<CarFiltersStore & CarFiltersActions>()(
           state.carFilters = { ...state.carFilters, manufacturer: manufacturer } as CarFiltersType;
         }),
       ),
-    setCarFilterModel: (model: string) =>
+    setCarFilterModel: (model: number) =>
       set(
         produce((state: CarFiltersStore) => {
           state.carFilters = { ...state.carFilters, model: model } as CarFiltersType;
