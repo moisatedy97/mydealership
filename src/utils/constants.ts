@@ -13,7 +13,7 @@ export const YearRangeTypes: RangeFiltersType = {
 };
 export const PriceRangeTypes: RangeFiltersType = {
   from: 0,
-  to: Math.pow(10, 8),
+  to: Math.pow(10, 6),
 };
 export const HorsepowerRangeTypes: RangeFiltersType = {
   from: 0,

@@ -11,13 +11,13 @@ export type CarFiltersStore = {
 export type CarFiltersActions = {
   setCarFilterManufacturer: (manufacturer: number) => void;
   setCarFilterModel: (model: string) => void;
-  setCarFilterYear: (year: number) => void;
+  setCarFilterYearRange: (year: RangeFiltersType) => void;
   setCarFilterPriceRange: (price: RangeFiltersType) => void;
-  setCarFilterHorsepower: (horsepower: number) => void;
-  setCarFilterTorque: (torque: number) => void;
-  setCarFilterKm: (km: number) => void;
-  setCarFilterKmPerLiterCity: (kmPerLiterCity: number) => void;
-  setCarFilterKmPerLiterHighway: (kmPerLiterHighway: number) => void;
+  setCarFilterHorsepowerRange: (horsepower: RangeFiltersType) => void;
+  setCarFilterTorqueRange: (torque: RangeFiltersType) => void;
+  setCarFilterKmRange: (km: RangeFiltersType) => void;
+  setCarFilterKmPerLiterCityRange: (kmPerLiterCity: RangeFiltersType) => void;
+  setCarFilterKmPerLiterHighwayRange: (kmPerLiterHighway: RangeFiltersType) => void;
   setCarFilterTransmissionType: (transmissionType: Enums<"car_transmission_type">) => void;
   setCarFilterEngineType: (engineType: Enums<"car_engine_type">) => void;
   setCarFilterFuelType: (fuelType: Enums<"car_fuel_type">) => void;
@@ -40,7 +40,7 @@ export const useCarFiltersStore = create<CarFiltersStore & CarFiltersActions>()(
           state.carFilters = { ...state.carFilters, model: model } as CarFiltersType;
         }),
       ),
-    setCarFilterYear: (year: number) =>
+    setCarFilterYearRange: (year: RangeFiltersType) =>
       set(
         produce((state: CarFiltersStore) => {
           state.carFilters = { ...state.carFilters, year: year } as CarFiltersType;
@@ -52,31 +52,31 @@ export const useCarFiltersStore = create<CarFiltersStore & CarFiltersActions>()(
           state.carFilters = { ...state.carFilters, price: price } as CarFiltersType;
         }),
       ),
-    setCarFilterHorsepower: (horsepower: number) =>
+    setCarFilterHorsepowerRange: (horsepower: RangeFiltersType) =>
       set(
         produce((state: CarFiltersStore) => {
           state.carFilters = { ...state.carFilters, horsepower: horsepower } as CarFiltersType;
         }),
       ),
-    setCarFilterTorque: (torque: number) =>
+    setCarFilterTorqueRange: (torque: RangeFiltersType) =>
       set(
         produce((state: CarFiltersStore) => {
           state.carFilters = { ...state.carFilters, torque: torque } as CarFiltersType;
         }),
       ),
-    setCarFilterKm: (km: number) =>
+    setCarFilterKmRange: (km: RangeFiltersType) =>
       set(
         produce((state: CarFiltersStore) => {
           state.carFilters = { ...state.carFilters, km: km } as CarFiltersType;
         }),
       ),
-    setCarFilterKmPerLiterCity: (kmPerLiterCity: number) =>
+    setCarFilterKmPerLiterCityRange: (kmPerLiterCity: RangeFiltersType) =>
       set(
         produce((state: CarFiltersStore) => {
           state.carFilters = { ...state.carFilters, kmPerLiterCity: kmPerLiterCity } as CarFiltersType;
         }),
       ),
-    setCarFilterKmPerLiterHighway: (kmPerLiterHighway: number) =>
+    setCarFilterKmPerLiterHighwayRange: (kmPerLiterHighway: RangeFiltersType) =>
       set(
         produce((state: CarFiltersStore) => {
           state.carFilters = { ...state.carFilters, kmPerLiterHighway: kmPerLiterHighway } as CarFiltersType;

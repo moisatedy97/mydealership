@@ -39,11 +39,15 @@ async function constructQuery(carFilters: CarFiltersType) {
   const supabase = createClientComponentClient<Database>();
   let query = supabase.from("Car").select("*");
 
-  if (carFilters.manufacturer > 0) {
+  if (carFilters.manufacturer && carFilters.manufacturer > 0) {
     query = query.eq("manufacturerId", carFilters.manufacturer);
   }
-  if (carFilters.fuelType.length > 0) {
+  if (carFilters.fuelType && carFilters.fuelType.length > 0) {
     query = query.eq("fuelType", carFilters.fuelType);
+  }
+  if (carFilters.price && carFilters.price.from > 0 && carFilters.price.to > 0) {
+    query = query.gte("price", carFilters.price.from);
+    query = query.lte("price", carFilters.price.to);
   }
 
   return await query;

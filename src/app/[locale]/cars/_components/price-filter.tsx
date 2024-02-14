@@ -6,11 +6,12 @@ import { useCarFiltersStore } from "@/stores/car-filters-store";
 import { PriceRangeTypes } from "@/utils/constants";
 
 export default function PriceFilter(): ReactElement {
-  const setPrice = useCarFiltersStore((state) => state.setCarFilterPriceRange);
+  const { price, setPrice } = useCarFiltersStore((state) => ({
+    price: state.carFilters?.price,
+    setPrice: state.setCarFilterPriceRange,
+  }));
 
   const handleRangeChange = (values: number[]) => {
-    console.log(values);
-
     setPrice({
       from: values[0],
       to: values[1],
@@ -18,12 +19,16 @@ export default function PriceFilter(): ReactElement {
   };
 
   return (
-    <Slider
-      min={PriceRangeTypes.from!}
-      max={PriceRangeTypes.to!}
-      defaultValue={[PriceRangeTypes.from!, PriceRangeTypes.to!]}
-      onValueCommit={handleRangeChange}
-      className="w-48"
-    />
+    <div>
+      <div>{`${price ? price.from : PriceRangeTypes.from} - ${price ? price.to : PriceRangeTypes.to}`}</div>
+      <Slider
+        min={PriceRangeTypes.from}
+        max={PriceRangeTypes.to}
+        defaultValue={[PriceRangeTypes.from, PriceRangeTypes.to]}
+        onValueCommit={handleRangeChange}
+        className="w-[30rem]"
+        step={1000}
+      />
+    </div>
   );
 }
