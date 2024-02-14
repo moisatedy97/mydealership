@@ -1,16 +1,22 @@
-import { QueryData, QueryError } from "@supabase/supabase-js";
 import React, { ReactElement } from "react";
-import supabaseServer from "@/supabase/config";
+import ManufacturersFilter from "./_components/manufacturers-filter";
+import EngineTypeFilter from "./_components/engine-type-filter";
+import FuelTypeFilter from "./_components/fuel-type-filter";
+import TransmissionTypeFilter from "./_components/transmission-type-filter";
+import StatusFilter from "./_components/status-filter";
+import Search from "./_components/search";
+import PriceFilter from "./_components/price-filter";
 
-export default async function Filters(): Promise<ReactElement | undefined> {
-  const query = supabaseServer().from("Car").select("*");
-  const { data, error }: { data: QueryData<typeof query> | null; error: QueryError | null } = await query;
-
-  if (error) {
-    throw error;
-  }
-
-  if (data) {
-    return <div></div>;
-  }
+export default function Filters(): ReactElement {
+  return (
+    <div>
+      <ManufacturersFilter />
+      <EngineTypeFilter />
+      <FuelTypeFilter />
+      <TransmissionTypeFilter />
+      <StatusFilter />
+      <PriceFilter />
+      <Search />
+    </div>
+  );
 }
