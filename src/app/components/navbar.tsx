@@ -1,92 +1,106 @@
+"use client";
+
+import { Button, DropdownMenu, Heading } from "@radix-ui/themes";
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import { User } from "@supabase/supabase-js";
+import { useTranslations } from "next-intl";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/navigation";
+import { ReactElement, useEffect, useState } from "react";
+import { Database } from "../../../types/supabase";
+import LanguageSelector from "./language-selector";
 
-export default function Navbar() {
-  type NavigationMenu = {
-    name: string;
-    href: string;
-  };
-
-  const navigation: NavigationMenu[] = [
-    {
-      name: "Home",
-      href: "/",
-    },
-    {
-      name: "Login",
-      href: "/login",
-    },
-  ];
-
+export default function Navbar(): ReactElement {
   return (
-    <>
-      <div className="navbar bg-base-100">
-        <div className="navbar-start">
-          <div className="dropdown">
-            <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
-              <MobileMenuIcon />
-            </div>
-            <ul
-              tabIndex={0}
-              className="menu dropdown-content menu-sm rounded-box bg-base-100 z-[1] mt-3 w-52 p-2 shadow"
-            >
-              {navigation.map((element: NavigationMenu, index: number) => (
-                <li key={index}>
-                  <Link href={element.href} rel="canonical">
-                    {element.name}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-          <a className="btn btn-ghost text-xl">MyDealership</a>
-        </div>
-        <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
-            {navigation.map((element: NavigationMenu, index: number) => (
-              <li key={index}>
-                <Link href={element.href} rel="canonical">
-                  {element.name}
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="navbar-end">
-          <ProfileIcon />
-        </div>
+    <nav className="sticky top-0 z-50 flex h-16 items-center justify-center border-b border-lime-200 bg-white">
+      <div className="flex  items-center gap-3">
+        <Heading as="h1" weight={"bold"}>
+          <span className="block text-lime-400 sm:hidden">MyD</span>
+          <span className="hidden text-lime-400  sm:block ">MyDealership</span>
+        </Heading>
+        <NavigationMenu />
+        <LanguageSelector />
       </div>
-    </>
+    </nav>
   );
 }
 
-const ProfileIcon = () => {
+const ProfileButton = (): ReactElement => {
+  const t = useTranslations("navbar");
+
   return (
-    <div className="dropdown dropdown-end">
-      <div tabIndex={0} role="button" className="avatar btn btn-circle btn-ghost">
-        <div className="w-10 rounded-full">
-          <img
-            alt="Tailwind CSS Navbar component"
-            src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-          />
-        </div>
-      </div>
-      <ul tabIndex={0} className="menu dropdown-content menu-sm rounded-box bg-base-100 z-[1] mt-3 w-52 p-2 shadow">
-        <li>
-          <a>Settings</a>
-        </li>
-        <li>
-          <a>Logout</a>
-        </li>
-      </ul>
-    </div>
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger>
+        <Button variant="outline" className="cursor-pointer">
+          {t("menu.user.profile")}
+        </Button>
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Content>
+        <LogoutButton />
+      </DropdownMenu.Content>
+    </DropdownMenu.Root>
   );
 };
 
-const MobileMenuIcon = () => {
+const LogoutButton = () => {
+  const t = useTranslations("navbar");
+  const router = useRouter();
+  const supabase = createClientComponentClient<Database>();
+
+  const signOut = async () => {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      throw error;
+    }
+
+    router.refresh();
+  };
+
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16" />
-    </svg>
+    <DropdownMenu.Item color="red" onClick={() => signOut()}>
+      {t("menu.user.logout")}
+    </DropdownMenu.Item>
   );
+};
+
+const NavigationMenu = (): ReactElement => {
+  const supabase = createClientComponentClient<Database>();
+  const t = useTranslations("navbar");
+  const [isLogged, setIsLogged] = useState<boolean>();
+
+  useEffect(() => {
+    const getUserLoggedSession = async () => {
+      const data: User | null = (await supabase.auth.getUser()).data.user;
+      if (!!data === true) {
+        setIsLogged(true);
+      } else {
+        setIsLogged(false);
+      }
+    };
+
+    getUserLoggedSession();
+  });
+
+  if (isLogged) {
+    return (
+      <>
+        <Button variant="soft" asChild>
+          <Link href="/">{t("menu.home")}</Link>
+        </Button>
+        <ProfileButton />
+      </>
+    );
+  } else {
+    return (
+      <>
+        <Button variant="soft" asChild>
+          <Link href="/">{t("menu.home")}</Link>
+        </Button>
+        <Button variant="soft" asChild>
+          <Link href="/login">{t("menu.login")}</Link>
+        </Button>
+      </>
+    );
+  }
 };

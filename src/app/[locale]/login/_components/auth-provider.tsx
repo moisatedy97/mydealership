@@ -40,10 +40,16 @@ export default function AuthProvider() {
   };
 
   return (
-    <div>
+    <div className="flex gap-1">
       {EnabledProviders.map((provider: Provider, index: number) => {
         return (
-          <Button variant="outline" key={index} value={provider} onClick={handleAuthProviderOnClick}>
+          <Button
+            variant="outline"
+            className="cursor-pointer"
+            key={index}
+            value={provider}
+            onClick={handleAuthProviderOnClick}
+          >
             {provider}
           </Button>
         );

@@ -7,6 +7,7 @@ import { Database } from "../types/supabase";
 export default async function middleware(req: NextRequest) {
   const handleI18nRouting = createIntlMiddleware({
     locales: ["en", "it"],
+    localePrefix: "never",
     defaultLocale: "en",
   });
   const res = handleI18nRouting(req);
@@ -22,5 +23,5 @@ export default async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/", "/(it|en)/:path*"],
+  matcher: ["/((?!api|_next|.*\\..*).*)"],
 };
