@@ -5,6 +5,7 @@ import "@radix-ui/themes/styles.css";
 import { Theme } from "@radix-ui/themes";
 import "../globals.css";
 import Navbar from "../components/navbar";
+import Footer from "../components/footer";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -64,7 +65,7 @@ export default function RootLayout({ children, params: { locale } }: any) {
           <NextIntlClientProvider messages={messages}>
             <Navbar />
             {children}
-            {/* <Footer /> */}
+            <Footer />
           </NextIntlClientProvider>
         </Theme>
       </body>
