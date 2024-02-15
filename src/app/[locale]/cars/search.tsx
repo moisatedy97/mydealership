@@ -6,23 +6,27 @@ import { SearchIcon } from "lucide-react";
 import React, { ReactElement } from "react";
 import { CarFiltersType } from "@/interfaces/car-filters-interface";
 import { useCarFiltersStore } from "@/stores/car-filters-store";
+import { useCarsStore } from "@/stores/cars-store";
 import { Database } from "../../../../types/supabase";
 
 export default function Search(): ReactElement {
   const carFilters = useCarFiltersStore((state) => state.carFilters);
+  const setCars = useCarsStore((state) => state.setCars);
 
   const handleSearch = async () => {
     if (carFilters) {
       const { data, error } = await constructQuery(carFilters);
 
+      //TODO: handle error
       if (error) {
         throw error;
       }
 
-      if (data) {
-        console.log(data);
+      if (data && data.length > 0) {
+        setCars(data);
       }
     } else {
+      //TODO: handle error
       console.log("No filters selected");
     }
   };
