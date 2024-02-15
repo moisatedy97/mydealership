@@ -88,6 +88,9 @@ const NavigationMenu = (): ReactElement => {
         <Button variant="soft" asChild>
           <Link href="/">{t("menu.home")}</Link>
         </Button>
+        <Button variant="soft" asChild>
+          <Link href="/cars">{t("menu.cars")}</Link>
+        </Button>
         <ProfileButton />
       </>
     );
