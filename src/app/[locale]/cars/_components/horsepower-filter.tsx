@@ -26,7 +26,7 @@ export default function HorsepowerFilter(): ReactElement {
         max={HorsepowerRangeTypes.to}
         defaultValue={[HorsepowerRangeTypes.from, HorsepowerRangeTypes.to]}
         onValueCommit={handleRangeChange}
-        className="w-[30rem]"
+        className="w-full"
       />
     </div>
   );

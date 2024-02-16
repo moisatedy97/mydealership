@@ -17,7 +17,7 @@ import Cars from "./cars";
 
 export default function Filters(): ReactElement {
   return (
-    <>
+    <div className="flex flex-col gap-4">
       <ManufacturersFilter />
       <ModelFilter />
       <EngineTypeFilter />
@@ -33,6 +33,6 @@ export default function Filters(): ReactElement {
       <KmPerLiterHighwayFilter />
       <Search />
       <Cars />
-    </>
+    </div>
   );
 }

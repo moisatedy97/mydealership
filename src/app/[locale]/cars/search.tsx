@@ -32,7 +32,7 @@ export default function Search(): ReactElement {
   };
 
   return (
-    <Button onClick={handleSearch}>
+    <Button onClick={handleSearch} className="cursor-pointer">
       <SearchIcon width="16" height="16" />
       Search
     </Button>

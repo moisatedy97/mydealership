@@ -26,7 +26,7 @@ export default function TorqueFilter(): ReactElement {
         max={TorqueRangeTypes.to}
         defaultValue={[TorqueRangeTypes.from, TorqueRangeTypes.to]}
         onValueCommit={handleRangeChange}
-        className="w-[30rem]"
+        className="w-full"
       />
     </div>
   );

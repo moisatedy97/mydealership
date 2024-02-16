@@ -26,7 +26,7 @@ export default function KmFilter(): ReactElement {
         max={KmRangeTypes.to}
         defaultValue={[KmRangeTypes.from, KmRangeTypes.to]}
         onValueCommit={handleRangeChange}
-        className="w-[30rem]"
+        className="w-full"
       />
     </div>
   );

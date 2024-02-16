@@ -26,7 +26,7 @@ export default function PriceFilter(): ReactElement {
         max={PriceRangeTypes.to}
         defaultValue={[PriceRangeTypes.from, PriceRangeTypes.to]}
         onValueCommit={handleRangeChange}
-        className="w-[30rem]"
+        className="w-full"
         step={1000}
       />
     </div>
