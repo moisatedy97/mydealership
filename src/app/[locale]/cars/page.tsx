@@ -2,6 +2,7 @@ import React, { ReactElement } from "react";
 import { Button, Card, Heading } from "@radix-ui/themes";
 import { Minus } from "lucide-react";
 import Filters from "./filters";
+import CarsResult from "./cars";
 
 export default function Cars(): ReactElement {
   return (
@@ -24,7 +25,7 @@ export default function Cars(): ReactElement {
           <Heading size="6" as="h1" className="mb-3">
             Car
           </Heading>
-          Sez principale
+          <CarsResult />
         </Card>
       </div>
     </div>
