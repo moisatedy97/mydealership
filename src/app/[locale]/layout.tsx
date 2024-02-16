@@ -64,7 +64,7 @@ export default function RootLayout({ children, params: { locale } }: any) {
         <Theme accentColor="lime" radius="full">
           <NextIntlClientProvider messages={messages}>
             <Navbar />
-            {children}
+            <div className="mx-auto my-10 max-w-5xl px-5">{children}</div>
             <Footer />
           </NextIntlClientProvider>
         </Theme>

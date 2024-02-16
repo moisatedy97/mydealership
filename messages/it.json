@@ -34,5 +34,9 @@
         "logout": "Esci"
       }
     }
+  },
+  "footer": {
+    "sentence": "",
+    "link": ""
   }
 }

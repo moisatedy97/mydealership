@@ -16,7 +16,7 @@ import ModelFilter from "./_components/model-filter";
 
 export default function Filters(): ReactElement {
   return (
-    <div className="flex flex-col gap-4 p-6">
+    <>
       <ManufacturersFilter />
       <ModelFilter />
       <EngineTypeFilter />
@@ -31,6 +31,6 @@ export default function Filters(): ReactElement {
       <KmPerLiterCityFilter />
       <KmPerLiterHighwayFilter />
       <Search />
-    </div>
+    </>
   );
 }

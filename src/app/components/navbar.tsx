@@ -2,15 +2,22 @@
 
 import { Button, DropdownMenu, Heading } from "@radix-ui/themes";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { User } from "@supabase/supabase-js";
+import { AuthError, Session, SupabaseClient } from "@supabase/supabase-js";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ReactElement, useEffect, useState } from "react";
+import { ReactElement, useEffect } from "react";
+import { useUserSessionStore } from "@/stores/session-store";
 import { Database } from "../../../types/supabase";
 import LanguageSelector from "./language-selector";
 
+type SupabaseClientProps = {
+  supabase: SupabaseClient;
+};
+
 export default function Navbar(): ReactElement {
+  const supabase = createClientComponentClient<Database>();
+
   return (
     <nav className="sticky top-0 z-50 flex h-16 items-center justify-center border-b border-lime-200 bg-white">
       <div className="flex  items-center gap-3">
@@ -18,61 +25,24 @@ export default function Navbar(): ReactElement {
           <span className="block text-lime-400 sm:hidden">MyD</span>
           <span className="hidden text-lime-400  sm:block ">MyDealership</span>
         </Heading>
-        <NavigationMenu />
+        <NavigationMenu supabase={supabase} />
         <LanguageSelector />
       </div>
     </nav>
   );
 }
 
-const ProfileButton = (): ReactElement => {
+const NavigationMenu = ({ supabase }: SupabaseClientProps): ReactElement => {
   const t = useTranslations("navbar");
-
-  return (
-    <DropdownMenu.Root>
-      <DropdownMenu.Trigger>
-        <Button variant="outline" className="cursor-pointer">
-          {t("menu.user.profile")}
-        </Button>
-      </DropdownMenu.Trigger>
-      <DropdownMenu.Content>
-        <LogoutButton />
-      </DropdownMenu.Content>
-    </DropdownMenu.Root>
-  );
-};
-
-const LogoutButton = () => {
-  const t = useTranslations("navbar");
-  const router = useRouter();
-  const supabase = createClientComponentClient<Database>();
-
-  const signOut = async () => {
-    const { error } = await supabase.auth.signOut();
-
-    if (error) {
-      throw error;
-    }
-
-    router.refresh();
-  };
-
-  return (
-    <DropdownMenu.Item color="red" onClick={() => signOut()}>
-      {t("menu.user.logout")}
-    </DropdownMenu.Item>
-  );
-};
-
-const NavigationMenu = (): ReactElement => {
-  const supabase = createClientComponentClient<Database>();
-  const t = useTranslations("navbar");
-  const [isLogged, setIsLogged] = useState<boolean>();
+  const { isLogged, setIsLogged } = useUserSessionStore((state) => ({
+    isLogged: state.isLogged,
+    setIsLogged: state.setIsLogged,
+  }));
 
   useEffect(() => {
     const getUserLoggedSession = async () => {
-      const data: User | null = (await supabase.auth.getUser()).data.user;
-      if (!!data === true) {
+      const { data }: { data: { session: Session | null }; error: AuthError | null } = await supabase.auth.getSession();
+      if (data.session) {
         setIsLogged(true);
       } else {
         setIsLogged(false);
@@ -80,7 +50,7 @@ const NavigationMenu = (): ReactElement => {
     };
 
     getUserLoggedSession();
-  });
+  }, []);
 
   if (isLogged) {
     return (
@@ -91,7 +61,7 @@ const NavigationMenu = (): ReactElement => {
         <Button variant="soft" asChild>
           <Link href="/cars">{t("menu.cars")}</Link>
         </Button>
-        <ProfileButton />
+        <ProfileButton supabase={supabase} />
       </>
     );
   } else {
@@ -106,4 +76,44 @@ const NavigationMenu = (): ReactElement => {
       </>
     );
   }
+};
+
+const ProfileButton = ({ supabase }: SupabaseClientProps): ReactElement => {
+  const t = useTranslations("navbar");
+
+  return (
+    <DropdownMenu.Root>
+      <DropdownMenu.Trigger>
+        <Button variant="outline" className="cursor-pointer">
+          {t("menu.user.profile")}
+        </Button>
+      </DropdownMenu.Trigger>
+      <DropdownMenu.Content>
+        <LogoutButton supabase={supabase} />
+      </DropdownMenu.Content>
+    </DropdownMenu.Root>
+  );
+};
+
+const LogoutButton = ({ supabase }: SupabaseClientProps) => {
+  const t = useTranslations("navbar");
+  const router = useRouter();
+  const setIsLogged = useUserSessionStore((state) => state.setIsLogged);
+
+  const signOut = async () => {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      throw error;
+    }
+
+    router.refresh();
+    setIsLogged(false);
+  };
+
+  return (
+    <DropdownMenu.Item color="red" onClick={() => signOut()}>
+      {t("menu.user.logout")}
+    </DropdownMenu.Item>
+  );
 };
