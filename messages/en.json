@@ -12,7 +12,7 @@
   "login": {
     "title": "Login",
     "sentence": "Find you car in the fastest way possible",
-    "register": "Register",
+    "register": "Sign Up",
     "form": {
       "email": {
         "label": "Email",
@@ -21,6 +21,10 @@
       "password": {
         "label": "Password",
         "placeholder": "Enter your password"
+      },
+      "errors": {
+        "emailSent": "We sent an email to activate your profile to your email address, also check spam.",
+        "userExist": "The mailing address already exists, if you do not remember the password please contact us."
       }
     }
   },
