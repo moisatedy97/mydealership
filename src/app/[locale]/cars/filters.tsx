@@ -13,6 +13,7 @@ import KmPerLiterCityFilter from "./_components/km-per-liter-city-filter";
 import KmPerLiterHighwayFilter from "./_components/km-per-liter-highway-filter";
 import CategoryFilter from "./_components/category-filter";
 import ModelFilter from "./_components/model-filter";
+import Cars from "./cars";
 
 export default function Filters(): ReactElement {
   return (
@@ -31,6 +32,7 @@ export default function Filters(): ReactElement {
       <KmPerLiterCityFilter />
       <KmPerLiterHighwayFilter />
       <Search />
+      <Cars />
     </>
   );
 }
