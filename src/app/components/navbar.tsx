@@ -2,11 +2,11 @@
 
 import { Button, DropdownMenu, Heading } from "@radix-ui/themes";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { AuthError, Session, SupabaseClient } from "@supabase/supabase-js";
+import { SupabaseClient } from "@supabase/supabase-js";
 import { useTranslations } from "next-intl";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ReactElement, useEffect } from "react";
+import { ReactElement } from "react";
 import { Disclosure } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useUserSessionStore } from "@/stores/session-store";
@@ -76,25 +76,22 @@ const Logo = () => {
 
 const NavigationMenu = ({ supabase }: SupabaseClientProps): ReactElement => {
   const t = useTranslations("navbar");
-  const { isLogged, setIsLogged } = useUserSessionStore((state) => ({
-    isLogged: state.isLogged,
-    setIsLogged: state.setIsLogged,
-  }));
+  const user = useUserSessionStore((state) => state.user);
 
-  useEffect(() => {
-    const getUserLoggedSession = async () => {
-      const { data }: { data: { session: Session | null }; error: AuthError | null } = await supabase.auth.getSession();
-      if (data.session) {
-        setIsLogged(true);
-      } else {
-        setIsLogged(false);
-      }
-    };
+  // useEffect(() => {
+  //   const getUserLoggedSession = async () => {
+  //     const { data }: { data: { session: Session | null }; error: AuthError | null } = await supabase.auth.getSession();
+  //     if (data.session) {
+  //       setIsLogged(true);
+  //     } else {
+  //       setIsLogged(false);
+  //     }
+  //   };
 
-    getUserLoggedSession();
-  }, []);
+  //   getUserLoggedSession();
+  // }, []);
 
-  if (isLogged) {
+  if (user) {
     return (
       <>
         <MenuButton style="soft" link="/" title={t("menu.home")} />
@@ -147,7 +144,7 @@ const ProfileButton = ({ supabase }: SupabaseClientProps): ReactElement => {
 const LogoutButton = ({ supabase }: SupabaseClientProps) => {
   const t = useTranslations("navbar");
   const router = useRouter();
-  const setIsLogged = useUserSessionStore((state) => state.setIsLogged);
+  const setUser = useUserSessionStore((state) => state.setUser);
 
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
@@ -156,8 +153,8 @@ const LogoutButton = ({ supabase }: SupabaseClientProps) => {
       throw error;
     }
 
+    setUser(null);
     router.refresh();
-    setIsLogged(false);
   };
 
   return (

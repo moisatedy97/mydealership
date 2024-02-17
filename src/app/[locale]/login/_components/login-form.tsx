@@ -19,17 +19,19 @@ export default function LoginForm(): ReactElement {
   const supabase = createClientComponentClient<Database>();
   const router = useRouter();
   const [formAuthError, setFormAuthError] = useState<string>();
-  const setIsLogged = useUserSessionStore((state) => state.setIsLogged);
+  const setUser = useUserSessionStore((state) => state.setUser);
 
   const onSubmit: SubmitHandler<AuthFormType> = async (values: z.infer<typeof authFormSchema>) => {
     const authCredentials: AuthFormType = { email: values.email, password: values.password };
     const login = await supabase.auth.signInWithPassword(authCredentials);
-    const { error } = login;
+    const { error, data } = login;
 
     if (error) {
       setFormAuthError(error.message);
-    } else {
-      setIsLogged(true);
+    }
+
+    if (data && data.session) {
+      setUser(data.user);
       router.push("/");
       router.refresh();
     }
