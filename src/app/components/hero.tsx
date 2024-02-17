@@ -30,8 +30,20 @@ export default function Hero() {
           width="1080"
           height={"1080"}
         />
+        {/* <Canvas dpr={[1, 2]} shadows camera={{ fov: 45 }} style={{ position: "relative", width: 700, height: 400 }}>
+          <PresentationControls>
+            <Stage environment={"warehouse"}>
+              <Model scale={0.01} />
+            </Stage>
+          </PresentationControls>
+        </Canvas> */}
         <HeroCards />
       </div>
     </Container>
   );
 }
+
+// function Model(scale: any) {
+//   const { scene } = useGLTF("/audi5.glb");
+//   return <primitive object={scene} {...scale} />;
+// }

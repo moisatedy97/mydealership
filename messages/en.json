@@ -32,6 +32,7 @@
     "menu": {
       "home": "Homepage",
       "login": "Login",
+      "signup": "Sign Up",
       "cars": "Cars",
       "user": {
         "profile": "Profile",
