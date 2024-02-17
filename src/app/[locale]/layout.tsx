@@ -6,6 +6,7 @@ import { Theme } from "@radix-ui/themes";
 import "../globals.css";
 import Navbar from "../components/navbar";
 import Footer from "../components/footer";
+import SessionProvider from "../components/session-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -68,6 +69,7 @@ export default function RootLayout({ children, params: { locale } }: any) {
             <Footer />
           </NextIntlClientProvider>
         </Theme>
+        <SessionProvider />
       </body>
     </html>
   );
