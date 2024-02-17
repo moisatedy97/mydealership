@@ -26,7 +26,7 @@ export default function KmPerLiterHighwayFilter(): ReactElement {
         max={KmPerLiterHighwayRangeTypes.to}
         defaultValue={[KmPerLiterHighwayRangeTypes.from, KmPerLiterHighwayRangeTypes.to]}
         onValueCommit={handleRangeChange}
-        className="w-[30rem]"
+        className="w-full"
         step={0.1}
       />
     </div>

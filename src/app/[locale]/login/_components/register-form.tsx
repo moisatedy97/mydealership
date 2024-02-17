@@ -1,38 +1,26 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import { Heading, Text } from "@radix-ui/themes";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { AuthResponse } from "@supabase/supabase-js";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
 import { ReactElement, useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler } from "react-hook-form";
 import { z } from "zod";
-import { AuthActionEnum } from "@/utils/enums";
 import { authFormSchema, AuthFormType } from "@/interfaces/auth-interface";
-import { useUserSessionStore } from "@/stores/session-store";
 import { Database } from "../../../../../types/supabase";
 import Form from "./form";
+import ErrorMessage from "./error-message";
 
 export default function RegisterForm(): ReactElement {
   const t = useTranslations("login");
   const supabase = createClientComponentClient<Database>();
-  const router = useRouter();
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<AuthFormType>({ resolver: zodResolver(authFormSchema) });
-  const [authAction, setAuthAction] = useState<AuthActionEnum>(AuthActionEnum.LOGIN);
   const [formAuthError, setFormAuthError] = useState<string>();
-  const setIsLogged = useUserSessionStore((state) => state.setIsLogged);
   const [isEmailSent, setIsEmailSent] = useState<boolean>();
   const [isUserExist, setIsUserExist] = useState<boolean>();
 
   const onSubmit: SubmitHandler<AuthFormType> = async (values: z.infer<typeof authFormSchema>) => {
     const authCredentials: AuthFormType = { email: values.email, password: values.password };
-    const register = await onSubmitRegister(authCredentials);
+    const register = await supabase.auth.signUp(authCredentials);
     const { error } = register;
     const isEmailAlreadyRegistered: boolean = register.data.user?.identities?.length === 0;
     const isEmailConfirmed: boolean =
@@ -51,31 +39,15 @@ export default function RegisterForm(): ReactElement {
     }
   };
 
-  const onSubmitRegister = async (authCredentials: AuthFormType): Promise<AuthResponse> => {
-    return await supabase.auth.signUp(authCredentials);
-  };
-
   return (
     <div className="flex flex-col gap-2">
       <Heading size="6" as="h1">
         {t("register")}
       </Heading>
       <Text color="gray">{t("sentence")}</Text>
-      <Form
-        submitFunction={handleSubmit(onSubmit)}
-        emailFiled={{ ...register("email") }}
-        passwordField={{ ...register("password") }}
-        errors={errors}
-        formTypeName={t("register")}
-      />
-      {isUserExist && (
-        <span className="text-xs text-red-500">Lo utente esiste gia, se non ricordi la password boh</span>
-      )}
-      {isEmailSent && (
-        <span className="text-xs text-red-500">
-          Abbiamo inviato una email al tuo inidirizzo id posta, verifica lo spam
-        </span>
-      )}
+      <Form submitFunction={onSubmit} formTypeName={t("register")} />
+      {isUserExist && <ErrorMessage errorValue={t("form.errors.userExist")} errorType="2" />}
+      {isEmailSent && <ErrorMessage errorValue={t("form.errors.emailSent")} errorType="2" />}
     </div>
   );
 }

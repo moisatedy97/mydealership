@@ -26,7 +26,7 @@ export default function KmPerLiterCityFilter(): ReactElement {
         max={KmPerLiterCityRangeTypes.to}
         defaultValue={[KmPerLiterCityRangeTypes.from, KmPerLiterCityRangeTypes.to]}
         onValueCommit={handleRangeChange}
-        className="w-[30rem]"
+        className="w-full"
         step={0.1}
       />
     </div>

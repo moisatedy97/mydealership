@@ -21,6 +21,10 @@
       "password": {
         "label": "Password",
         "placeholder": "Inserisci la tua password"
+      },
+      "errors": {
+        "emailSent": "Abbiamo inviato una email per attivare il tuo profilo al tuo indirizzo di posta, verifica anche nello spam.",
+        "userExist": "L'indirizzo di posta, esiste già, se non ricordi la password contattaci."
       }
     }
   },
@@ -28,6 +32,7 @@
     "menu": {
       "home": "Pagina Iniziale",
       "login": "Accedi",
+      "signup": "Registrati",
       "cars": "Macchine",
       "user": {
         "profile": "Profilo",

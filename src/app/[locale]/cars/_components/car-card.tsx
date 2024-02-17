@@ -1,7 +1,7 @@
 "use client";
 
 import React, { ReactElement } from "react";
-import { Box, Card, Flex, Text } from "@radix-ui/themes";
+import { Box, Flex, Text } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
 import { Tables } from "../../../../../types/database.types";
 
@@ -17,7 +17,7 @@ export default function CarCard({ car }: CarCardProps): ReactElement {
   };
 
   return (
-    <Card style={{ maxWidth: 240 }} onClick={handleCardClick}>
+    <div onClick={handleCardClick}>
       <Flex gap="3" align="center">
         <Box>
           <Text as="div" size="2" weight="bold">
@@ -32,6 +32,6 @@ export default function CarCard({ car }: CarCardProps): ReactElement {
           ...
         </Box>
       </Flex>
-    </Card>
+    </div>
   );
 }
