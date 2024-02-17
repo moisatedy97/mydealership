@@ -4,6 +4,7 @@ import { Card, Container, Tabs } from "@radix-ui/themes";
 import { useTranslations } from "next-intl";
 import { usePathname } from "next/navigation";
 import { ReactElement } from "react";
+import { AuthActionEnum } from "@/utils/enums";
 import LoginForm from "./login-form";
 import RegisterForm from "./register-form";
 
@@ -18,14 +19,14 @@ export default function AuthForm(): ReactElement {
         <div className="flex flex-col gap-2">
           <Tabs.Root defaultValue={pathNameWithoutForwardSlash}>
             <Tabs.List>
-              <Tabs.Trigger value="login">{t("title")}</Tabs.Trigger>
-              <Tabs.Trigger value="register">{t("register")}</Tabs.Trigger>
+              <Tabs.Trigger value={AuthActionEnum.LOGIN}>{t("title")}</Tabs.Trigger>
+              <Tabs.Trigger value={AuthActionEnum.REGISTER}>{t("register")}</Tabs.Trigger>
             </Tabs.List>
             <div className="pb-2 pt-3">
-              <Tabs.Content value="login">
+              <Tabs.Content value={AuthActionEnum.LOGIN}>
                 <LoginForm />
               </Tabs.Content>
-              <Tabs.Content value="register">
+              <Tabs.Content value={AuthActionEnum.REGISTER}>
                 <RegisterForm />
               </Tabs.Content>
             </div>
