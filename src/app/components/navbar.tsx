@@ -21,7 +21,7 @@ export default function Navbar(): ReactElement {
   const supabase = createClientComponentClient<Database>();
 
   return (
-    <Disclosure as="nav" className="sticky top-0 z-50 mb-5">
+    <Disclosure as="nav" className="sticky top-0 z-50 mb-5  border-b bg-white">
       {({ open }: any) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -54,7 +54,7 @@ export default function Navbar(): ReactElement {
               </div>
             </div>
           </div>
-          <Disclosure.Panel className="p-5 sm:hidden">
+          <Disclosure.Panel className="border-b bg-white  p-5 sm:hidden">
             <div className="flex flex-wrap gap-2">
               <NavigationMenu supabase={supabase} />
             </div>
