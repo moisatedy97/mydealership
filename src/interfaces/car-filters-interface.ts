@@ -12,6 +12,7 @@ import { Enums } from "../../types/database.types";
 import { createRangeFiltersSchema } from "./range-filter-interface";
 
 export const carFiltersSchema = z.object({
+  title: z.string(),
   manufacturer: z.number(),
   model: z.number(),
   year: createRangeFiltersSchema(YearRangeTypes.from, YearRangeTypes.to),
