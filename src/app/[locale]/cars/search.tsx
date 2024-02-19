@@ -43,6 +43,9 @@ async function constructQuery(carFilters: CarFiltersType) {
   const supabase = createClientComponentClient<Database>();
   let query = supabase.from("Car").select("*");
 
+  if (carFilters.title && carFilters.title.length > 0) {
+    query = query.ilike("title", `%${carFilters.title}%`);
+  }
   if (carFilters.manufacturer && carFilters.manufacturer > 0) {
     query = query.eq("manufacturerId", carFilters.manufacturer);
   }

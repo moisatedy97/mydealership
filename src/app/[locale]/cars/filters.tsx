@@ -13,10 +13,12 @@ import KmPerLiterCityFilter from "./_components/km-per-liter-city-filter";
 import KmPerLiterHighwayFilter from "./_components/km-per-liter-highway-filter";
 import CategoryFilter from "./_components/category-filter";
 import ModelFilter from "./_components/model-filter";
+import TitleFilter from "./_components/title-filter";
 
 export default function Filters(): ReactElement {
   return (
     <div className="flex flex-col gap-4">
+      <TitleFilter />
       <ManufacturersFilter />
       <ModelFilter />
       <EngineTypeFilter />

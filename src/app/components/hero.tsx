@@ -1,10 +1,11 @@
 "use client";
-import { Container, Heading, Text, TextField } from "@radix-ui/themes";
+
+import { Container, Heading, Text } from "@radix-ui/themes";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import { Search } from "lucide-react";
 import React from "react";
 import HeroCards from "./hero-cards";
+import SinglelineCarsFilter from "./singleline-cars-filters";
 
 export default function Hero() {
   const t = useTranslations("index");
@@ -18,12 +19,7 @@ export default function Hero() {
         <Text size="6" color="gray">
           {t("sentence")}
         </Text>
-        <TextField.Root size={"3"}>
-          <TextField.Slot>
-            <Search height="16" width="16" />
-          </TextField.Slot>
-          <TextField.Input placeholder={t("searchButton")} />
-        </TextField.Root>
+        <SinglelineCarsFilter />
         <Image
           src="https://www.apexspares.com/cdn/shop/collections/por3__67065_1200x1200.png?v=1639558726"
           alt="Porsche GT3"

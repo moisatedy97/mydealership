@@ -19,6 +19,7 @@ export type Database = {
           modelId: number;
           price: number;
           status: Database["public"]["Enums"]["car_status_type"];
+          title: string;
           torque: number;
           transmissionType: Database["public"]["Enums"]["car_transmission_type"];
           year: number;
@@ -38,6 +39,7 @@ export type Database = {
           modelId: number;
           price: number;
           status?: Database["public"]["Enums"]["car_status_type"];
+          title?: string;
           torque: number;
           transmissionType: Database["public"]["Enums"]["car_transmission_type"];
           year: number;
@@ -57,6 +59,7 @@ export type Database = {
           modelId?: number;
           price?: number;
           status?: Database["public"]["Enums"]["car_status_type"];
+          title?: string;
           torque?: number;
           transmissionType?: Database["public"]["Enums"]["car_transmission_type"];
           year?: number;
