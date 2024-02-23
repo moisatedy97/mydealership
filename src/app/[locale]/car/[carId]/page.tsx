@@ -1,6 +1,7 @@
 import { QueryData, QueryError } from "@supabase/supabase-js";
 import React, { ReactElement } from "react";
 import supabaseServer from "@/supabase/config";
+import PaymentPlans from "./_components/payment-plans";
 
 export default async function CarDetails({ params }: { params: { carId: string } }): Promise<ReactElement | undefined> {
   const query = supabaseServer().from("Car").select("*").eq("carId", Number(params.carId));
@@ -12,7 +13,12 @@ export default async function CarDetails({ params }: { params: { carId: string }
   }
 
   if (data && data.length > 0) {
-    return <pre>{JSON.stringify(data[0], null, 2)}</pre>;
+    return (
+      <div>
+        <pre>{JSON.stringify(data[0], null, 2)}</pre>
+        <PaymentPlans />
+      </div>
+    );
   } else {
     return <div>Car not found</div>;
   }
