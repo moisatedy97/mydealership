@@ -2,10 +2,11 @@ import Stripe from "stripe";
 
 export const POST = async (req: Request) => {
   const product: Stripe.Product = await req.json();
+  const referer: string = req.headers.get("referer") as string;
 
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
-  const session = await stripe.checkout.sessions.create({
+  const session: Stripe.Checkout.Session = await stripe.checkout.sessions.create({
     line_items: [
       {
         price: product.default_price as string,
@@ -13,13 +14,13 @@ export const POST = async (req: Request) => {
       },
     ],
     mode: "payment",
-    success_url: "http://localhost:3000/success",
-    cancel_url: "http://localhost:3000/cancel",
+    success_url: referer,
+    cancel_url: referer,
   });
 
   if (session.id) {
-    return new Response(session.url);
+    return Response.json(session, { status: 200 });
   }
 
-  return Response.json({ error: "Error creating session" }, { status: 500 });
+  return Response.json({ error: "Error creating stripe session" }, { status: 500 });
 };
