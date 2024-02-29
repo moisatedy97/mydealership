@@ -2,7 +2,7 @@
 
 import { Button } from "@radix-ui/themes";
 import axios, { AxiosResponse } from "axios";
-import { ReactElement, useState } from "react";
+import { ReactElement } from "react";
 import Stripe from "stripe";
 import getStripe from "@/stripe/config";
 
@@ -11,8 +11,6 @@ type ButtonProps = {
 };
 
 const BuyPlan = ({ products }: ButtonProps): ReactElement => {
-  const [stripeRes, setstripeRes] = useState(null);
-
   const handleBuyPlanClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
     const product = products.find((product) => product.id === event.currentTarget.value);
 
@@ -27,20 +25,18 @@ const BuyPlan = ({ products }: ButtonProps): ReactElement => {
         Stripe.Product
       >(`${process.env.NEXT_PUBLIC_API_URL}/api/stripe/checkout`, product);
 
-      console.log(checkoutSession);
+      if (status === 200) {
+        const stripe = await getStripe();
+        const { error } = await stripe!.redirectToCheckout({
+          sessionId: checkoutSession.id,
+        });
 
-      if (status !== 200) {
-        console.log(statusText);
+        if (error) {
+          console.log("Redirect to checkout failed");
+        }
+      } else {
+        console.log(`Error creating stripe session: ${statusText}`);
       }
-
-      const stripe = await getStripe();
-      const response = await stripe!.redirectToCheckout({
-        sessionId: checkoutSession.id,
-      });
-
-      console.log(response);
-
-      // window.location.assign(checkoutSession.url as string);
     }
   };
 
@@ -53,7 +49,6 @@ const BuyPlan = ({ products }: ButtonProps): ReactElement => {
           </Button>
         );
       })}
-      <pre>{JSON.stringify(stripeRes, null, 2)}</pre>
     </div>
   );
 };
