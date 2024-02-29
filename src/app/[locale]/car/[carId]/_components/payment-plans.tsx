@@ -5,10 +5,10 @@ import BuyPlan from "./buy-plan-button";
 
 export default async function PaymentPlans(): Promise<ReactElement | undefined> {
   const { data }: { data: Stripe.Product[] } = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/stripe/products`,
+    `${process.env.NEXT_PUBLIC_API_URL}/api/stripe/payment-plans`,
   );
 
   if (data && data.length > 0) {
-    return <BuyPlan products={data} />;
+    return <BuyPlan paymentPlans={data} />;
   }
 }
