@@ -1,7 +1,7 @@
 "use client";
 
 import React, { ReactElement } from "react";
-import { Box, Flex, Text } from "@radix-ui/themes";
+import { Card, Heading, Inset, Text } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
 import { Tables } from "../../../../../types/database.types";
 
@@ -17,21 +17,26 @@ export default function CarCard({ car }: CarCardProps): ReactElement {
   };
 
   return (
-    <div onClick={handleCardClick}>
-      <Flex gap="3" align="center">
-        <Box>
-          <Text as="div" size="2" weight="bold">
-            {car.carId}
-          </Text>
-          <Text as="div" size="2" weight="bold">
-            {car.manufacturerId}
-          </Text>
-          <Text as="div" size="2" color="gray">
-            {car.modelId}
-          </Text>
-          ...
-        </Box>
-      </Flex>
-    </div>
+    <Card size="2" onClick={handleCardClick} className="cursor-pointer">
+      <Inset clip="padding-box" side="top" pb="current">
+        <img
+          src="https://manxmotortrader.com/wp-content/themes/kensington/img/placeholder.jpg"
+          alt="Bold typography"
+          style={{
+            display: "block",
+            objectFit: "cover",
+            width: "100%",
+            height: 140,
+            backgroundColor: "var(--gray-5)",
+          }}
+        />
+      </Inset>
+      <Heading size="4" as="h3">
+        {car.transmissionType}
+      </Heading>
+      <Text as="p" size="3">
+        {car.modelId}
+      </Text>
+    </Card>
   );
 }
