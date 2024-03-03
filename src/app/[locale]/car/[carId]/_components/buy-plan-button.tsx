@@ -22,6 +22,7 @@ const BuyPlan = ({ paymentPlans }: ButtonProps): ReactElement => {
 
       if (paymentPlan) {
         const stripeCheckoutData: StripeCheckoutData = {
+          userId: user.id,
           userEmail: user.email ?? "",
           paymentPlan: paymentPlan,
         };

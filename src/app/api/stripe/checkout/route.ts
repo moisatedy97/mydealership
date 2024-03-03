@@ -23,6 +23,17 @@ export const POST = async (req: Request) => {
   });
 
   if (session.id) {
+    console.log("session", session);
+    // const query = supabaseServer()
+    //   .from("CarOrder")
+    //   .insert([{ stripeSessionId: session.id }, {carId: }, { userId: reqData.userId }])
+    //   .select();
+    // const { error }: { error: QueryError | null } = await query;
+
+    // if (error) {
+    //   return Response.json({ error: "Error creating stripe session" }, { status: 500 });
+    // }
+
     return Response.json(session, { status: 200 });
   }
 
