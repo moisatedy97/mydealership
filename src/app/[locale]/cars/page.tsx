@@ -25,8 +25,9 @@ export default function Cars(): ReactElement {
           <Heading size="6" as="h1" className="mb-3">
             Car
           </Heading>
-          <CarsResult />
+          Filter your car and see the result
         </Card>
+        <CarsResult />
       </div>
     </div>
   );
