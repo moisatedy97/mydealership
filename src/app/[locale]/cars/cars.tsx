@@ -17,6 +17,7 @@ export default function CarsResult(): ReactElement | undefined {
             return <CarCard key={index} car={car} />;
           })}
         </div>
+        {/* dd */}
       </ScrollArea>
     );
   }
