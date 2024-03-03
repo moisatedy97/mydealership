@@ -1,15 +1,15 @@
-import React, { ReactElement, useCallback, useEffect, useState } from "react";
 import { EmblaOptionsType } from "embla-carousel";
 import useEmblaCarousel from "embla-carousel-react";
 import Image from "next/image";
+import { ReactElement, useCallback, useEffect, useState } from "react";
 import ThumbImage from "./thumb-image";
 
 type CarCarouselProps = {
   slides: string[];
-  options?: EmblaOptionsType;
 };
 
-export const CarCarousel = ({ slides, options }: CarCarouselProps): ReactElement => {
+export const CarCarousel = ({ slides }: CarCarouselProps): ReactElement => {
+  const options: EmblaOptionsType = { startIndex: 2 };
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel(options);
   const [emblaThumbsRef, emblaThumbsApi] = useEmblaCarousel({
