@@ -1,13 +1,21 @@
+"use client";
+
 import { Card, Heading, Table, Text } from "@radix-ui/themes";
 import React from "react";
+import { EmblaOptionsType } from "embla-carousel";
 import { Tables } from "../../../../../../types/database.types";
 import { CarCarousel } from "./car-carousel";
+import "./css/embla.css";
 
 type CarDetailProps = {
   data: Tables<"Car">;
 };
 
 export default function CarDetail({ data }: CarDetailProps) {
+  const OPTIONS: EmblaOptionsType = {};
+  const SLIDE_COUNT = data.images.length;
+  const SLIDES = Array.from(Array(SLIDE_COUNT).keys());
+
   return (
     <div className="gap-4 md:flex">
       <div className="md:w-1/4">
@@ -24,7 +32,7 @@ export default function CarDetail({ data }: CarDetailProps) {
             Car title
           </Heading>
           <Text color="gray">{data.description}</Text>
-          <CarCarousel />
+          <CarCarousel slides={data.images} options={OPTIONS} />
         </Card>
       </div>
     </div>
