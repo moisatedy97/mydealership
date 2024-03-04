@@ -7,9 +7,10 @@ import Stripe from "stripe";
 import getStripe from "@/stripe/config";
 import { useUserSessionStore } from "@/stores/session-store";
 import { StripeCheckoutData } from "@/interfaces/stripe-checkout-data";
+import { StripePaymentPlan } from "@/app/api/stripe/payment-plans/route";
 
 type ButtonProps = {
-  paymentPlans: Stripe.Product[];
+  paymentPlans: StripePaymentPlan[];
 };
 
 const BuyPlan = ({ paymentPlans }: ButtonProps): ReactElement => {
@@ -54,10 +55,11 @@ const BuyPlan = ({ paymentPlans }: ButtonProps): ReactElement => {
 
   return (
     <div className="flex flex-col gap-2">
+      <pre>{JSON.stringify(paymentPlans, null, 2)}</pre>
       {paymentPlans.map((paymentPlan) => {
         return (
           <Button key={paymentPlan.id} value={paymentPlan.id} onClick={handleBuyPlanClick}>
-            {paymentPlan.name}
+            {paymentPlan.product.name}
           </Button>
         );
       })}
