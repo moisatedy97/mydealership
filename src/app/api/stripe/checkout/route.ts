@@ -1,10 +1,12 @@
 import Stripe from "stripe";
+import { QueryError } from "@supabase/supabase-js";
 import { StripeCheckoutData } from "@/interfaces/stripe-checkout-data";
+import supabaseServer from "@/supabase/config";
 
 export const POST = async (req: Request) => {
   const reqData: StripeCheckoutData = await req.json();
   const referer: string = req.headers.get("referer") as string;
-
+  const carId: string = referer.split("/")[referer.split("/").length - 1];
   const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
   const session: Stripe.Checkout.Session = await stripe.checkout.sessions.create({
@@ -23,16 +25,20 @@ export const POST = async (req: Request) => {
   });
 
   if (session.id) {
-    console.log("session", session);
-    // const query = supabaseServer()
-    //   .from("CarOrder")
-    //   .insert([{ stripeSessionId: session.id }, {carId: }, { userId: reqData.userId }])
-    //   .select();
-    // const { error }: { error: QueryError | null } = await query;
+    const query = supabaseServer()
+      .from("CarOrder")
+      .insert({
+        stripeSessionId: session.id,
+        carId: Number(carId),
+        userId: reqData.userId,
+        plan: reqData.paymentPlan.name,
+      })
+      .select();
+    const { error }: { error: QueryError | null } = await query;
 
-    // if (error) {
-    //   return Response.json({ error: "Error creating stripe session" }, { status: 500 });
-    // }
+    if (error) {
+      return Response.json({ error: "Error creating stripe session" }, { status: 500 });
+    }
 
     return Response.json(session, { status: 200 });
   }
