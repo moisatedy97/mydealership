@@ -1,5 +1,47 @@
 {
   "index": {
-    "title": "ciao Mondo"
+    "title": "Trova la tua auto",
+    "sentence": "Trova la tua auto più velocemente possibile",
+    "searchButton": "Trova un auto...",
+    "cardSection": {
+      "1": { "title": "Ricerca", "subtitle": "Filtri personalizzabili" },
+      "2": { "title": "Precisione", "subtitle": "Archivio completo" },
+      "3": { "title": "Supporto", "subtitle": "Community" }
+    }
+  },
+  "login": {
+    "title": "Accedi",
+    "sentence": "Trova la tua auto più velocemente possibile",
+    "register": "Registrati",
+    "form": {
+      "email": {
+        "label": "Email",
+        "placeholder": "Inserisci la tua email"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Inserisci la tua password"
+      },
+      "errors": {
+        "emailSent": "Abbiamo inviato una email per attivare il tuo profilo al tuo indirizzo di posta, verifica anche nello spam.",
+        "userExist": "L'indirizzo di posta, esiste già, se non ricordi la password contattaci."
+      }
+    }
+  },
+  "navbar": {
+    "menu": {
+      "home": "Pagina Iniziale",
+      "login": "Accedi",
+      "signup": "Registrati",
+      "cars": "Macchine",
+      "user": {
+        "profile": "Profilo",
+        "logout": "Esci"
+      }
+    }
+  },
+  "footer": {
+    "sentence": "",
+    "link": ""
   }
 }

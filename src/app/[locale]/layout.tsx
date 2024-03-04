@@ -1,7 +1,11 @@
-import type { Metadata, ResolvingMetadata } from "next";
+import type { Metadata } from "next";
 import { NextIntlClientProvider, useMessages } from "next-intl";
 import { Inter } from "next/font/google";
+import "@radix-ui/themes/styles.css";
+import { Theme } from "@radix-ui/themes";
 import "../globals.css";
+import Navbar from "../components/navbar";
+import SessionProvider from "../components/session-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,7 +23,7 @@ type Props = {
   searchParams: { [key: string]: string | string[] | undefined };
 };
 
-export async function generateMetadata({ params, searchParams }: Props, parent: ResolvingMetadata): Promise<Metadata> {
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `My Dealership | audi a 5`,
     description: `bla bla bla`,
@@ -54,10 +58,17 @@ export default function RootLayout({ children, params: { locale } }: any) {
   const messages = useMessages();
 
   return (
-    <html lang={locale} suppressHydrationWarning={true}>
+    <html lang={locale} suppressHydrationWarning={true} data-theme="corporate">
       <body className={inter.className}>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-        <NextIntlClientProvider messages={messages}>{children}</NextIntlClientProvider>
+        <Theme accentColor="lime" radius="full">
+          <NextIntlClientProvider messages={messages}>
+            <Navbar />
+            <div className="mx-auto my-10 max-w-5xl px-5">{children}</div>
+            {/* <Footer /> */}
+          </NextIntlClientProvider>
+        </Theme>
+        <SessionProvider />
       </body>
     </html>
   );

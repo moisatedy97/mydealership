@@ -1,5 +1,43 @@
 {
   "index": {
-    "title": "Hello world!"
+    "title": "Find your car",
+    "sentence": "Find you car in the fastest way possible",
+    "searchButton": "Search for the car...",
+    "cardSection": {
+      "1": { "title": "Search", "subtitle": "Custom Filters" },
+      "2": { "title": "Precision", "subtitle": "Complete archive" },
+      "3": { "title": "Support", "subtitle": "Community" }
+    }
+  },
+  "login": {
+    "title": "Login",
+    "sentence": "Find you car in the fastest way possible",
+    "register": "Sign Up",
+    "form": {
+      "email": {
+        "label": "Email",
+        "placeholder": "Enter your email"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Enter your password"
+      },
+      "errors": {
+        "emailSent": "We sent an email to activate your profile to your email address, also check spam.",
+        "userExist": "The mailing address already exists, if you do not remember the password please contact us."
+      }
+    }
+  },
+  "navbar": {
+    "menu": {
+      "home": "Homepage",
+      "login": "Login",
+      "signup": "Sign Up",
+      "cars": "Cars",
+      "user": {
+        "profile": "Profile",
+        "logout": "Logout"
+      }
+    }
   }
 }
