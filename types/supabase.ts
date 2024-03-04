@@ -126,6 +126,14 @@ export type Database = {
           updatedAt: string;
           userId: string;
         };
+          carId: number
+          createdAt: string
+          plan: string
+          price: number
+          status: Database["public"]["Enums"]["car_order_status_type"]
+          updatedAt: string
+          userId: string
+        }
         Insert: {
           carId: number;
           createdAt?: string;
@@ -137,6 +145,14 @@ export type Database = {
           updatedAt?: string;
           userId: string;
         };
+          carId: number
+          createdAt?: string
+          plan?: string
+          price: number
+          status?: Database["public"]["Enums"]["car_order_status_type"]
+          updatedAt?: string
+          userId: string
+        }
         Update: {
           carId?: number;
           createdAt?: string;
@@ -148,6 +164,14 @@ export type Database = {
           updatedAt?: string;
           userId?: string;
         };
+          carId?: number
+          createdAt?: string
+          plan?: string
+          price?: number
+          status?: Database["public"]["Enums"]["car_order_status_type"]
+          updatedAt?: string
+          userId?: string
+        }
         Relationships: [
           {
             foreignKeyName: "CarOrder_carId_fkey";
@@ -204,6 +228,20 @@ export type Database = {
           paymentMethod: string;
           transactionId: string;
         };
+          amount: number
+          carId: number
+          country: string
+          createdAt: string
+          currency: string
+          customerEmail: string
+          expiresAt: string
+          method: string
+          phone: string
+          sessionId: string
+          status: Database["public"]["Enums"]["car_payment_status_type"]
+          updatedAt: string
+          userId: string
+        }
         Insert: {
           carOrderId: number;
           paymentAmount: number;
@@ -212,6 +250,20 @@ export type Database = {
           paymentMethod?: string;
           transactionId?: string;
         };
+          amount: number
+          carId: number
+          country?: string
+          createdAt?: string
+          currency?: string
+          customerEmail?: string
+          expiresAt: string
+          method?: string
+          phone?: string
+          sessionId?: string
+          status?: Database["public"]["Enums"]["car_payment_status_type"]
+          updatedAt: string
+          userId: string
+        }
         Update: {
           carOrderId?: number;
           paymentAmount?: number;
@@ -220,6 +272,20 @@ export type Database = {
           paymentMethod?: string;
           transactionId?: string;
         };
+          amount?: number
+          carId?: number
+          country?: string
+          createdAt?: string
+          currency?: string
+          customerEmail?: string
+          expiresAt?: string
+          method?: string
+          phone?: string
+          sessionId?: string
+          status?: Database["public"]["Enums"]["car_payment_status_type"]
+          updatedAt?: string
+          userId?: string
+        }
         Relationships: [
           {
             foreignKeyName: "public_Payment_carOrderId_fkey";
@@ -231,6 +297,15 @@ export type Database = {
         ];
       };
     };
+            foreignKeyName: "public_Payment_carId_userId_fkey"
+            columns: ["carId", "userId"]
+            isOneToOne: true
+            referencedRelation: "CarOrder"
+            referencedColumns: ["carId", "userId"]
+          }
+        ]
+      }
+    }
     Views: {
       [_ in never]: never;
     };
@@ -244,6 +319,19 @@ export type Database = {
       car_status_type: "Coming soon" | "On sale" | "Sold" | "In process";
       car_transmission_type: "Automatic" | "Manual";
     };
+      car_engine_type: "Combustion" | "Electric" | "Hybrid"
+      car_fuel_type:
+        | "Diesel"
+        | "Petrol"
+        | "Hydrogen"
+        | "Electricity"
+        | "LPG"
+        | "Methane"
+      car_order_status_type: "complete" | "expired" | "open"
+      car_payment_status_type: "no_payment_required" | "paid" | "unpaid"
+      car_status_type: "Coming soon" | "On sale" | "Sold" | "In process"
+      car_transmission_type: "Automatic" | "Manual"
+    }
     CompositeTypes: {
       [_ in never]: never;
     };
