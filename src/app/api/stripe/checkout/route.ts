@@ -64,8 +64,6 @@ const createStripeSession = async (reqData: StripeCheckoutData, referer: string)
     cancel_url: referer,
   });
 
-  console.log("session", session);
-
   return session;
 };
 

@@ -1,131 +1,127 @@
-export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
+export type Json =
+  | string
+  | number
+  | boolean
+  | null
+  | { [key: string]: Json | undefined }
+  | Json[]
 
 export type Database = {
   public: {
     Tables: {
       Car: {
         Row: {
-          carId: number;
-          categoryId: number;
-          description: string;
-          engineType: Database["public"]["Enums"]["car_engine_type"];
-          fuelType: Database["public"]["Enums"]["car_fuel_type"];
-          horsepower: number;
-          images: string[];
-          km: number;
-          kmPerLiterCity: number;
-          kmPerLiterHighway: number;
-          manufacturerId: number;
-          modelId: number;
-          price: number;
-          status: Database["public"]["Enums"]["car_status_type"];
-          title: string;
-          torque: number;
-          transmissionType: Database["public"]["Enums"]["car_transmission_type"];
-          year: number;
-        };
+          carId: number
+          categoryId: number
+          description: string
+          engineType: Database["public"]["Enums"]["car_engine_type"]
+          fuelType: Database["public"]["Enums"]["car_fuel_type"]
+          horsepower: number
+          images: string[]
+          km: number
+          kmPerLiterCity: number
+          kmPerLiterHighway: number
+          manufacturerId: number
+          modelId: number
+          price: number
+          status: Database["public"]["Enums"]["car_status_type"]
+          title: string
+          torque: number
+          transmissionType: Database["public"]["Enums"]["car_transmission_type"]
+          year: number
+        }
         Insert: {
-          carId?: number;
-          categoryId: number;
-          description?: string;
-          engineType: Database["public"]["Enums"]["car_engine_type"];
-          fuelType: Database["public"]["Enums"]["car_fuel_type"];
-          horsepower: number;
-          images: string[];
-          km: number;
-          kmPerLiterCity: number;
-          kmPerLiterHighway: number;
-          manufacturerId: number;
-          modelId: number;
-          price: number;
-          status?: Database["public"]["Enums"]["car_status_type"];
-          title?: string;
-          torque: number;
-          transmissionType: Database["public"]["Enums"]["car_transmission_type"];
-          year: number;
-        };
+          carId?: number
+          categoryId: number
+          description?: string
+          engineType: Database["public"]["Enums"]["car_engine_type"]
+          fuelType: Database["public"]["Enums"]["car_fuel_type"]
+          horsepower: number
+          images: string[]
+          km: number
+          kmPerLiterCity: number
+          kmPerLiterHighway: number
+          manufacturerId: number
+          modelId: number
+          price: number
+          status?: Database["public"]["Enums"]["car_status_type"]
+          title?: string
+          torque: number
+          transmissionType: Database["public"]["Enums"]["car_transmission_type"]
+          year: number
+        }
         Update: {
-          carId?: number;
-          categoryId?: number;
-          description?: string;
-          engineType?: Database["public"]["Enums"]["car_engine_type"];
-          fuelType?: Database["public"]["Enums"]["car_fuel_type"];
-          horsepower?: number;
-          images?: string[];
-          km?: number;
-          kmPerLiterCity?: number;
-          kmPerLiterHighway?: number;
-          manufacturerId?: number;
-          modelId?: number;
-          price?: number;
-          status?: Database["public"]["Enums"]["car_status_type"];
-          title?: string;
-          torque?: number;
-          transmissionType?: Database["public"]["Enums"]["car_transmission_type"];
-          year?: number;
-        };
+          carId?: number
+          categoryId?: number
+          description?: string
+          engineType?: Database["public"]["Enums"]["car_engine_type"]
+          fuelType?: Database["public"]["Enums"]["car_fuel_type"]
+          horsepower?: number
+          images?: string[]
+          km?: number
+          kmPerLiterCity?: number
+          kmPerLiterHighway?: number
+          manufacturerId?: number
+          modelId?: number
+          price?: number
+          status?: Database["public"]["Enums"]["car_status_type"]
+          title?: string
+          torque?: number
+          transmissionType?: Database["public"]["Enums"]["car_transmission_type"]
+          year?: number
+        }
         Relationships: [
           {
-            foreignKeyName: "Car_categoryId_fkey";
-            columns: ["categoryId"];
-            isOneToOne: false;
-            referencedRelation: "Category";
-            referencedColumns: ["categoryId"];
+            foreignKeyName: "Car_categoryId_fkey"
+            columns: ["categoryId"]
+            isOneToOne: false
+            referencedRelation: "Category"
+            referencedColumns: ["categoryId"]
           },
           {
-            foreignKeyName: "Car_manufacturerId_fkey";
-            columns: ["manufacturerId"];
-            isOneToOne: false;
-            referencedRelation: "Manufacturer";
-            referencedColumns: ["manufacturerId"];
+            foreignKeyName: "Car_manufacturerId_fkey"
+            columns: ["manufacturerId"]
+            isOneToOne: false
+            referencedRelation: "Manufacturer"
+            referencedColumns: ["manufacturerId"]
           },
           {
-            foreignKeyName: "public_Car_modelId_fkey";
-            columns: ["modelId"];
-            isOneToOne: false;
-            referencedRelation: "CarModel";
-            referencedColumns: ["carModelId"];
-          },
-        ];
-      };
+            foreignKeyName: "public_Car_modelId_fkey"
+            columns: ["modelId"]
+            isOneToOne: false
+            referencedRelation: "CarModel"
+            referencedColumns: ["carModelId"]
+          }
+        ]
+      }
       CarModel: {
         Row: {
-          carModelId: number;
-          manufacturerId: number;
-          name: string;
-        };
+          carModelId: number
+          manufacturerId: number
+          name: string
+        }
         Insert: {
-          carModelId?: number;
-          manufacturerId: number;
-          name?: string;
-        };
+          carModelId?: number
+          manufacturerId: number
+          name?: string
+        }
         Update: {
-          carModelId?: number;
-          manufacturerId?: number;
-          name?: string;
-        };
+          carModelId?: number
+          manufacturerId?: number
+          name?: string
+        }
         Relationships: [
           {
-            foreignKeyName: "public_CarModel_manufacturerId_fkey";
-            columns: ["manufacturerId"];
-            isOneToOne: false;
-            referencedRelation: "Manufacturer";
-            referencedColumns: ["manufacturerId"];
-          },
-        ];
-      };
+            foreignKeyName: "public_CarModel_manufacturerId_fkey"
+            columns: ["manufacturerId"]
+            isOneToOne: false
+            referencedRelation: "Manufacturer"
+            referencedColumns: ["manufacturerId"]
+          }
+        ]
+      }
       CarOrder: {
         Row: {
-          carId: number;
-          createdAt: string;
-          orderCarId: number;
-          plan: string;
-          price: number;
-          status: Database["public"]["Enums"]["car_order_status_type"];
-          stripeSessionId: string;
-          updatedAt: string;
-          userId: string;
-        };
           carId: number
           createdAt: string
           plan: string
@@ -135,16 +131,6 @@ export type Database = {
           userId: string
         }
         Insert: {
-          carId: number;
-          createdAt?: string;
-          orderCarId?: number;
-          plan?: string;
-          price: number;
-          status?: Database["public"]["Enums"]["car_order_status_type"];
-          stripeSessionId: string;
-          updatedAt?: string;
-          userId: string;
-        };
           carId: number
           createdAt?: string
           plan?: string
@@ -154,16 +140,6 @@ export type Database = {
           userId: string
         }
         Update: {
-          carId?: number;
-          createdAt?: string;
-          orderCarId?: number;
-          plan?: string;
-          price?: number;
-          status?: Database["public"]["Enums"]["car_order_status_type"];
-          stripeSessionId?: string;
-          updatedAt?: string;
-          userId?: string;
-        };
           carId?: number
           createdAt?: string
           plan?: string
@@ -174,60 +150,53 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "CarOrder_carId_fkey";
-            columns: ["carId"];
-            isOneToOne: false;
-            referencedRelation: "Car";
-            referencedColumns: ["carId"];
+            foreignKeyName: "CarOrder_carId_fkey"
+            columns: ["carId"]
+            isOneToOne: false
+            referencedRelation: "Car"
+            referencedColumns: ["carId"]
           },
           {
-            foreignKeyName: "public_CarOrder_userId_fkey";
-            columns: ["userId"];
-            isOneToOne: false;
-            referencedRelation: "users";
-            referencedColumns: ["id"];
-          },
-        ];
-      };
+            foreignKeyName: "public_CarOrder_userId_fkey"
+            columns: ["userId"]
+            isOneToOne: false
+            referencedRelation: "users"
+            referencedColumns: ["id"]
+          }
+        ]
+      }
       Category: {
         Row: {
-          categoryId: number;
-          name: string;
-        };
+          categoryId: number
+          name: string
+        }
         Insert: {
-          categoryId?: number;
-          name?: string;
-        };
+          categoryId?: number
+          name?: string
+        }
         Update: {
-          categoryId?: number;
-          name?: string;
-        };
-        Relationships: [];
-      };
+          categoryId?: number
+          name?: string
+        }
+        Relationships: []
+      }
       Manufacturer: {
         Row: {
-          manufacturerId: number;
-          name: string;
-        };
+          manufacturerId: number
+          name: string
+        }
         Insert: {
-          manufacturerId?: number;
-          name?: string;
-        };
+          manufacturerId?: number
+          name?: string
+        }
         Update: {
-          manufacturerId?: number;
-          name?: string;
-        };
-        Relationships: [];
-      };
+          manufacturerId?: number
+          name?: string
+        }
+        Relationships: []
+      }
       Payment: {
         Row: {
-          carOrderId: number;
-          paymentAmount: number;
-          paymentDate: string;
-          paymentId: number;
-          paymentMethod: string;
-          transactionId: string;
-        };
           amount: number
           carId: number
           country: string
@@ -243,13 +212,6 @@ export type Database = {
           userId: string
         }
         Insert: {
-          carOrderId: number;
-          paymentAmount: number;
-          paymentDate?: string;
-          paymentId?: number;
-          paymentMethod?: string;
-          transactionId?: string;
-        };
           amount: number
           carId: number
           country?: string
@@ -265,13 +227,6 @@ export type Database = {
           userId: string
         }
         Update: {
-          carOrderId?: number;
-          paymentAmount?: number;
-          paymentDate?: string;
-          paymentId?: number;
-          paymentMethod?: string;
-          transactionId?: string;
-        };
           amount?: number
           carId?: number
           country?: string
@@ -288,15 +243,6 @@ export type Database = {
         }
         Relationships: [
           {
-            foreignKeyName: "public_Payment_carOrderId_fkey";
-            columns: ["carOrderId"];
-            isOneToOne: false;
-            referencedRelation: "CarOrder";
-            referencedColumns: ["orderCarId"];
-          },
-        ];
-      };
-    };
             foreignKeyName: "public_Payment_carId_userId_fkey"
             columns: ["carId", "userId"]
             isOneToOne: true
@@ -307,18 +253,12 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never;
-    };
+      [_ in never]: never
+    }
     Functions: {
-      [_ in never]: never;
-    };
+      [_ in never]: never
+    }
     Enums: {
-      car_engine_type: "Combustion" | "Electric" | "Hybrid";
-      car_fuel_type: "Diesel" | "Petrol" | "Hydrogen" | "Electricity" | "LPG" | "Methane";
-      car_order_status_type: "Fulfilled" | "On hold";
-      car_status_type: "Coming soon" | "On sale" | "Sold" | "In process";
-      car_transmission_type: "Automatic" | "Manual";
-    };
       car_engine_type: "Combustion" | "Electric" | "Hybrid"
       car_fuel_type:
         | "Diesel"
@@ -333,10 +273,10 @@ export type Database = {
       car_transmission_type: "Automatic" | "Manual"
     }
     CompositeTypes: {
-      [_ in never]: never;
-    };
-  };
-};
+      [_ in never]: never
+    }
+  }
+}
 
 export type Tables<
   PublicTableNameOrOptions extends
@@ -345,67 +285,75 @@ export type Tables<
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
         Database[PublicTableNameOrOptions["schema"]]["Views"])
-    : never = never,
+    : never = never
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? (Database[PublicTableNameOrOptions["schema"]]["Tables"] &
       Database[PublicTableNameOrOptions["schema"]]["Views"])[TableName] extends {
-      Row: infer R;
+      Row: infer R
     }
     ? R
     : never
-  : PublicTableNameOrOptions extends keyof (Database["public"]["Tables"] & Database["public"]["Views"])
-    ? (Database["public"]["Tables"] & Database["public"]["Views"])[PublicTableNameOrOptions] extends {
-        Row: infer R;
-      }
-      ? R
-      : never
-    : never;
+  : PublicTableNameOrOptions extends keyof (Database["public"]["Tables"] &
+      Database["public"]["Views"])
+  ? (Database["public"]["Tables"] &
+      Database["public"]["Views"])[PublicTableNameOrOptions] extends {
+      Row: infer R
+    }
+    ? R
+    : never
+  : never
 
 export type TablesInsert<
-  PublicTableNameOrOptions extends keyof Database["public"]["Tables"] | { schema: keyof Database },
+  PublicTableNameOrOptions extends
+    | keyof Database["public"]["Tables"]
+    | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+    : never = never
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Insert: infer I;
+      Insert: infer I
     }
     ? I
     : never
   : PublicTableNameOrOptions extends keyof Database["public"]["Tables"]
-    ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
-        Insert: infer I;
-      }
-      ? I
-      : never
-    : never;
+  ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
+      Insert: infer I
+    }
+    ? I
+    : never
+  : never
 
 export type TablesUpdate<
-  PublicTableNameOrOptions extends keyof Database["public"]["Tables"] | { schema: keyof Database },
+  PublicTableNameOrOptions extends
+    | keyof Database["public"]["Tables"]
+    | { schema: keyof Database },
   TableName extends PublicTableNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicTableNameOrOptions["schema"]]["Tables"]
-    : never = never,
+    : never = never
 > = PublicTableNameOrOptions extends { schema: keyof Database }
   ? Database[PublicTableNameOrOptions["schema"]]["Tables"][TableName] extends {
-      Update: infer U;
+      Update: infer U
     }
     ? U
     : never
   : PublicTableNameOrOptions extends keyof Database["public"]["Tables"]
-    ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
-        Update: infer U;
-      }
-      ? U
-      : never
-    : never;
+  ? Database["public"]["Tables"][PublicTableNameOrOptions] extends {
+      Update: infer U
+    }
+    ? U
+    : never
+  : never
 
 export type Enums<
-  PublicEnumNameOrOptions extends keyof Database["public"]["Enums"] | { schema: keyof Database },
+  PublicEnumNameOrOptions extends
+    | keyof Database["public"]["Enums"]
+    | { schema: keyof Database },
   EnumName extends PublicEnumNameOrOptions extends { schema: keyof Database }
     ? keyof Database[PublicEnumNameOrOptions["schema"]]["Enums"]
-    : never = never,
+    : never = never
 > = PublicEnumNameOrOptions extends { schema: keyof Database }
   ? Database[PublicEnumNameOrOptions["schema"]]["Enums"][EnumName]
   : PublicEnumNameOrOptions extends keyof Database["public"]["Enums"]
-    ? Database["public"]["Enums"][PublicEnumNameOrOptions]
-    : never;
+  ? Database["public"]["Enums"][PublicEnumNameOrOptions]
+  : never
