@@ -124,8 +124,10 @@ export type Database = {
         Row: {
           carId: number
           createdAt: string
+          expiredAt: string
           plan: string
           price: number
+          sessionId: string
           status: Database["public"]["Enums"]["car_order_status_type"]
           updatedAt: string
           userId: string
@@ -133,8 +135,10 @@ export type Database = {
         Insert: {
           carId: number
           createdAt?: string
+          expiredAt?: string
           plan?: string
           price: number
+          sessionId?: string
           status?: Database["public"]["Enums"]["car_order_status_type"]
           updatedAt?: string
           userId: string
@@ -142,8 +146,10 @@ export type Database = {
         Update: {
           carId?: number
           createdAt?: string
+          expiredAt?: string
           plan?: string
           price?: number
+          sessionId?: string
           status?: Database["public"]["Enums"]["car_order_status_type"]
           updatedAt?: string
           userId?: string
@@ -203,7 +209,6 @@ export type Database = {
           createdAt: string
           currency: string
           customerEmail: string
-          expiresAt: string
           method: string
           phone: string
           sessionId: string
@@ -218,7 +223,6 @@ export type Database = {
           createdAt?: string
           currency?: string
           customerEmail?: string
-          expiresAt: string
           method?: string
           phone?: string
           sessionId?: string
@@ -233,7 +237,6 @@ export type Database = {
           createdAt?: string
           currency?: string
           customerEmail?: string
-          expiresAt?: string
           method?: string
           phone?: string
           sessionId?: string
