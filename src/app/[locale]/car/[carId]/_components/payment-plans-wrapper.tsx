@@ -1,53 +1,25 @@
 "use client";
 
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import React, { ReactElement, useEffect, useState } from "react";
 import { parseISO } from "date-fns";
-import { QueryData, QueryError } from "@supabase/supabase-js";
-import { useUserSessionStore } from "@/stores/session-store";
-import { Database } from "../../../../../../types/supabase";
-import { Tables } from "../../../../../../types/database.types";
+import { ReactElement } from "react";
+import useCarOrders from "@/hooks/use-car-orders";
 import PaymentPlans from "./payment-plans";
+import { Tables } from "../../../../../../types/database.types";
 
-export default function PaymentPlansWrapper(): ReactElement | undefined {
-  const supabase = createClientComponentClient<Database>();
-  const user = useUserSessionStore((state) => state.user);
-  const [carOrder, setCarOrder] = useState<Tables<"CarOrder"> | null>(null);
+export default function PaymentPlansWrapper({ car }: { car: Tables<"Car"> }): ReactElement | undefined {
+  const carOrder = useCarOrders(car.carId);
 
-  useEffect(() => {
-    getCarOrder();
-  }, [user]);
-
-  const getCarOrder = async () => {
-    if (user) {
-      const query = supabase.from("CarOrder").select("*").eq("userId", user.id);
-      const { data, error }: { data: QueryData<typeof query> | null; error: QueryError | null } = await query;
-
-      //TODO: handle error
-      if (error) {
-        console.error(error);
-      }
-
-      if (data && data.length > 0) {
-        setCarOrder(data[0]);
-      }
-    }
-  };
-
-  if (user) {
-    if (carOrder) {
-      if (carOrder.sessionId.length > 0 && parseISO(carOrder.expiredAt) > new Date()) {
-        return (
-          <div>
-            You already have a car order for this car. Go in the proflie page to see the details and complete the
-            payment.
-          </div>
-        );
-      } else {
-        return <PaymentPlans />;
-      }
+  if (carOrder && carOrder.length > 0) {
+    if (carOrder[0].expiredAt && parseISO(carOrder[0].expiredAt) > new Date()) {
+      return (
+        <div>
+          You already have a car order for this car. Go in the proflie page to see the details and complete the payment.
+        </div>
+      );
     } else {
-      return <PaymentPlans />;
+      return <PaymentPlans car={car} carOrder={carOrder[0]} />;
     }
+  } else {
+    return <PaymentPlans car={car} carOrder={null} />;
   }
 }

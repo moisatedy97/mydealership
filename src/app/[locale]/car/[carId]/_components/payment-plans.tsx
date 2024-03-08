@@ -4,8 +4,14 @@ import axios from "axios";
 import { ReactElement, useEffect, useState } from "react";
 import { StripePaymentPlan } from "@/app/api/stripe/payment-plans/route";
 import PaymentPlan from "./payment-plan";
+import { Tables } from "../../../../../../types/database.types";
 
-export default function PaymentPlans(): ReactElement | undefined {
+type PaymentPlansProps = {
+  car: Tables<"Car">;
+  carOrder: Tables<"CarOrder"> | null;
+};
+
+export default function PaymentPlans({ car, carOrder }: PaymentPlansProps): ReactElement | undefined {
   const [paymentPlans, setPaymentPlans] = useState<StripePaymentPlan[]>([]);
 
   const getPaymentPlans = async () => {
@@ -26,7 +32,7 @@ export default function PaymentPlans(): ReactElement | undefined {
     return (
       <div>
         {paymentPlans.map((paymentPlan, index) => {
-          return <PaymentPlan key={index} paymentPlan={paymentPlan} />;
+          return <PaymentPlan key={index} car={car} carOrder={carOrder} paymentPlan={paymentPlan} />;
         })}
       </div>
     );

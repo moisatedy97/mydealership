@@ -17,9 +17,11 @@ export async function POST(req: Request) {
       switch (event.type) {
         case "checkout.session.completed":
           const checkoutSession = event.data.object;
+
           let error: QueryError | null = null;
 
           error = (await updatePayment(checkoutSession)).error;
+          error = (await updateCarOrder(checkoutSession)).error;
 
           if (error) {
             return Response.json({ error: error.message }, { status: 500 });
@@ -46,10 +48,11 @@ const updatePayment = async (
       method: stripeSession.payment_method_types[0],
       status: stripeSession.payment_status,
       updatedAt: new Date().toISOString(),
-      expiresAt: new Date(stripeSession.expires_at * 1000).toISOString(),
+      expiredAt: new Date(stripeSession.expires_at * 1000).toISOString(),
       currency: stripeSession.currency ?? "",
-      country: "",
-      phone: "",
+      customerEmail: stripeSession.customer_details?.email ?? "",
+      country: stripeSession.customer_details?.address?.country ?? "",
+      phone: stripeSession.customer_details?.phone ?? "",
     })
     .eq("sessionId", stripeSession.id)
     .select();
@@ -57,22 +60,17 @@ const updatePayment = async (
   return await query;
 };
 
-// const updateCarOrder = async (
-//   stripeSession: Stripe.Checkout.Session,
-// ): Promise<PostgrestSingleResponse<Tables<"CarOrder">[]>> => {
-//   const query = supabaseServer()
-//     .from("CarOrder")
-//     .update({
-//       method: stripeSession.payment_method_types[0],
-//       status: stripeSession.payment_status,
-//       updatedAt: new Date().toISOString(),
-//       expiresAt: new Date(stripeSession.expires_at * 1000).toISOString(),
-//       currency: stripeSession.currency ?? "",
-//       country: "",
-//       phone: "",
-//     })
-//     .eq("sessionId", stripeSession.id)
-//     .select();
+const updateCarOrder = async (
+  stripeSession: Stripe.Checkout.Session,
+): Promise<PostgrestSingleResponse<Tables<"CarOrder">[]>> => {
+  const query = supabaseServer()
+    .from("CarOrder")
+    .update({
+      status: stripeSession.status ?? "open",
+      updatedAt: new Date().toISOString(),
+    })
+    .eq("sessionId", stripeSession.id)
+    .select();
 
-//   return await query;
-// };
+  return await query;
+};

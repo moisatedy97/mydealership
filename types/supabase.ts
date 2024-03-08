@@ -124,7 +124,7 @@ export type Database = {
         Row: {
           carId: number
           createdAt: string
-          expiredAt: string
+          expiredAt: string | null
           plan: string
           price: number
           sessionId: string
@@ -135,7 +135,7 @@ export type Database = {
         Insert: {
           carId: number
           createdAt?: string
-          expiredAt?: string
+          expiredAt?: string | null
           plan?: string
           price: number
           sessionId?: string
@@ -146,7 +146,7 @@ export type Database = {
         Update: {
           carId?: number
           createdAt?: string
-          expiredAt?: string
+          expiredAt?: string | null
           plan?: string
           price?: number
           sessionId?: string
@@ -209,6 +209,7 @@ export type Database = {
           createdAt: string
           currency: string
           customerEmail: string
+          expiredAt: string | null
           method: string
           phone: string
           sessionId: string
@@ -223,6 +224,7 @@ export type Database = {
           createdAt?: string
           currency?: string
           customerEmail?: string
+          expiredAt?: string | null
           method?: string
           phone?: string
           sessionId?: string
@@ -237,6 +239,7 @@ export type Database = {
           createdAt?: string
           currency?: string
           customerEmail?: string
+          expiredAt?: string | null
           method?: string
           phone?: string
           sessionId?: string

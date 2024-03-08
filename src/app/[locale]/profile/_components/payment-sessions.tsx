@@ -17,7 +17,7 @@ export default function PaymentSessions(): ReactElement {
 
     //TODO: handle error
     if (error) {
-      console.error(error);
+      console.log(error);
     }
 
     if (data && data.length > 0) {
