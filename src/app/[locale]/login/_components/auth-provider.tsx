@@ -3,13 +3,12 @@
 import { AuthError, Provider } from "@supabase/supabase-js";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import React from "react";
-import { usePathname } from "next/navigation";
 import { Button } from "@radix-ui/themes";
 import { EnabledProviders } from "@/utils/constants";
 import { Database } from "../../../../../types/supabase";
 
 export default function AuthProvider() {
-  const pathname = usePathname();
+  // const pathname = usePathname();
   const supabase = createClientComponentClient<Database>();
 
   const handleAuthProviderOnClick = async (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -29,9 +28,9 @@ export default function AuthProvider() {
       error: AuthError | null;
     } = await supabase.auth.signInWithOAuth({
       provider: event.currentTarget.value as Provider,
-      options: {
-        redirectTo: location.origin + "/auth/callback?next=" + pathname,
-      },
+      // options: {
+      //   redirectTo: location.origin + "/auth/callback?next=" + pathname,
+      // },
     });
 
     if (error) {
