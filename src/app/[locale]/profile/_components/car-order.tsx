@@ -3,6 +3,7 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { QueryData, QueryError } from "@supabase/supabase-js";
 import { Tables } from "../../../../../types/database.types";
 import { Database } from "../../../../../types/supabase";
+import RetrieveSessionButton from "./retrieve-session-button";
 
 type CarOrderProps = {
   carOrder: Tables<"CarOrder">;
@@ -37,6 +38,7 @@ export default function CarOrder({ carOrder }: CarOrderProps): ReactElement | un
         <p>{carOrder.plan}</p>
         <p>{carOrder.price}</p>
         <h3>{carOrder.status}</h3>
+        {carOrder.status === "open" && <RetrieveSessionButton carOrder={carOrder} />}
       </div>
     );
   }

@@ -18,8 +18,7 @@ export default async function CarDetails({ params }: { params: { carId: string }
 
     return (
       <div>
-        <pre>{JSON.stringify(car, null, 2)}</pre>
-        <CarDetail data={car} />;
+        <CarDetail data={car} />
         <PaymentPlansWrapper car={car} />
       </div>
     );
