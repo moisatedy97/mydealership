@@ -1,8 +1,6 @@
 import Stripe from "stripe";
-import { QueryData, QueryError } from "@supabase/supabase-js";
 import { StripeCheckoutData } from "@/interfaces/stripe-checkout-data";
-import supabaseServer from "@/supabase/config";
-import { Tables } from "../../../../../types/database.types";
+import { supabaseFn } from "@/utils/supabase-functions";
 
 export const POST = async (req: Request) => {
   const reqData: StripeCheckoutData = await req.json();
@@ -11,10 +9,25 @@ export const POST = async (req: Request) => {
   const stripeSession = await createStripeSession(reqData, referer);
 
   if (stripeSession.id) {
-    const carPayment = await createPayment(stripeSession, reqData);
+    const carPayment = await supabaseFn.payment.create({
+      carId: reqData.carOrder.carId,
+      userId: reqData.carOrder.userId,
+      sessionId: stripeSession.id,
+      amount: reqData.paymentPlan.unit_amount! / 100,
+      expiredAt: new Date(stripeSession.expires_at * 1000).toISOString(),
+      updatedAt: new Date().toISOString(),
+    });
 
     if (carPayment && carPayment.length > 0) {
-      const carOrder = await updateCarOrder(stripeSession, reqData);
+      const carOrder = await supabaseFn.carOrder.update(
+        {
+          sessionId: stripeSession.id,
+          expiredAt: new Date(stripeSession.expires_at * 1000).toISOString(),
+          updatedAt: new Date().toISOString(),
+        },
+        reqData.carOrder.carId,
+        reqData.carOrder.userId,
+      );
 
       if (carOrder && carOrder.length > 0) {
         return Response.json(stripeSession, { status: 200 });
@@ -43,51 +56,4 @@ const createStripeSession = async (reqData: StripeCheckoutData, referer: string)
   });
 
   return session;
-};
-
-const createPayment = async (
-  stripeSession: Stripe.Checkout.Session,
-  reqData: StripeCheckoutData,
-): Promise<Tables<"Payment">[] | null> => {
-  const query = supabaseServer()
-    .from("Payment")
-    .insert({
-      carId: reqData.carOrder.carId,
-      userId: reqData.carOrder.userId,
-      sessionId: stripeSession.id,
-      amount: reqData.paymentPlan.unit_amount! / 100,
-      expiredAt: new Date(stripeSession.expires_at * 1000).toISOString(),
-      updatedAt: new Date().toISOString(),
-    })
-    .select();
-  const { data, error }: { data: QueryData<typeof query> | null; error: QueryError | null } = await query;
-
-  if (error) {
-    console.log(error);
-  }
-
-  return data;
-};
-
-const updateCarOrder = async (
-  stripeSession: Stripe.Checkout.Session,
-  reqData: StripeCheckoutData,
-): Promise<Tables<"CarOrder">[] | null> => {
-  const query = supabaseServer()
-    .from("CarOrder")
-    .update({
-      sessionId: stripeSession.id,
-      expiredAt: new Date(stripeSession.expires_at * 1000).toISOString(),
-      updatedAt: new Date().toISOString(),
-    })
-    .eq("userId", reqData.carOrder.userId)
-    .eq("carId", reqData.carOrder.carId)
-    .select();
-  const { data, error }: { data: QueryData<typeof query> | null; error: QueryError | null } = await query;
-
-  if (error) {
-    console.log(error);
-  }
-
-  return data;
 };

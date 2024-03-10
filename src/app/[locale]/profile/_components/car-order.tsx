@@ -17,9 +17,8 @@ export default function CarOrder({ carOrder }: CarOrderProps): ReactElement | un
     const query = supabase.from("Car").select("*").eq("carId", carOrder.carId);
     const { data, error }: { data: QueryData<typeof query> | null; error: QueryError | null } = await query;
 
-    //TODO: handle error
     if (error) {
-      console.error(error);
+      console.log(error);
     }
 
     if (data && data.length > 0) {

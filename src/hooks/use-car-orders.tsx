@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
-import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { QueryData, QueryError } from "@supabase/supabase-js";
 import { useUserSessionStore } from "@/stores/session-store";
+import { supabaseFn } from "@/utils/supabase-functions";
 import { Enums, Tables } from "../../types/database.types";
-import { Database } from "../../types/supabase";
 
-export default function useCarOrders(carId?: number) {
-  const supabase = createClientComponentClient<Database>();
+export default function useCarOrders(carId?: number): Tables<"CarOrder">[] {
   const user = useUserSessionStore((state) => state.user);
   const [carOrders, setCarOrders] = useState<Tables<"CarOrder">[]>([]);
 
@@ -16,20 +13,10 @@ export default function useCarOrders(carId?: number) {
 
   const getCarOrders = async () => {
     if (user) {
-      let query = supabase.from("CarOrder").select("*").eq("userId", user.id);
-      if (carId) {
-        query = query.eq("carId", carId);
-      }
+      const carOrders = await supabaseFn.carOrder.get(carId, user.id);
 
-      const { data, error }: { data: QueryData<typeof query> | null; error: QueryError | null } = await query;
-
-      //TODO: handle error
-      if (error) {
-        console.log(error);
-      }
-
-      if (data && data.length > 0) {
-        setCarOrders(verifiedCarOrders(data));
+      if (carOrders && carOrders.length > 0) {
+        setCarOrders(verifiedCarOrders(carOrders));
       }
     }
   };
@@ -42,7 +29,13 @@ const verifiedCarOrders = (carOrders: Tables<"CarOrder">[]): Tables<"CarOrder">[
 
   const verifiedCarOrders = carOrders.map((carOrder: Tables<"CarOrder">) => {
     if (isCarOrderExpired(carOrder)) {
-      updateCarOrder(carOrder);
+      supabaseFn.carOrder.update(
+        {
+          status: "expired",
+        },
+        carOrder.carId,
+        carOrder.userId,
+      );
 
       return { ...carOrder, status: carStatus };
     }
@@ -57,23 +50,4 @@ const isCarOrderExpired = (carOrder: Tables<"CarOrder">): boolean => {
     return false;
   }
   return new Date(carOrder.expiredAt) < new Date();
-};
-
-const updateCarOrder = async (carOrder: Tables<"CarOrder">): Promise<Tables<"CarOrder">[] | null> => {
-  const supabase = createClientComponentClient<Database>();
-  const query = supabase
-    .from("CarOrder")
-    .update({
-      status: "expired",
-    })
-    .eq("carId", carOrder.carId)
-    .eq("userId", carOrder.userId)
-    .select();
-  const { data, error }: { data: QueryData<typeof query> | null; error: QueryError | null } = await query;
-
-  if (error) {
-    console.log(error);
-  }
-
-  return data;
 };

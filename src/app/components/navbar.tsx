@@ -22,7 +22,7 @@ export default function Navbar(): ReactElement {
 
   return (
     <Disclosure as="nav" className="sticky top-0 z-50 mb-5  border-b bg-white">
-      {({ open }: any) => (
+      {({ open }: { open: boolean }) => (
         <>
           <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
             <div className="relative flex h-16 items-center justify-between">
@@ -65,7 +65,7 @@ export default function Navbar(): ReactElement {
   );
 }
 
-const Logo = () => {
+const Logo = (): ReactElement => {
   return (
     <Heading as="h1" weight={"bold"}>
       <span className="block text-lime-400 sm:hidden">MyD</span>
@@ -77,19 +77,6 @@ const Logo = () => {
 const NavigationMenu = ({ supabase }: SupabaseClientProps): ReactElement => {
   const t = useTranslations("navbar");
   const user = useUserSessionStore((state) => state.user);
-
-  // useEffect(() => {
-  //   const getUserLoggedSession = async () => {
-  //     const { data }: { data: { session: Session | null }; error: AuthError | null } = await supabase.auth.getSession();
-  //     if (data.session) {
-  //       setIsLogged(true);
-  //     } else {
-  //       setIsLogged(false);
-  //     }
-  //   };
-
-  //   getUserLoggedSession();
-  // }, []);
 
   if (user) {
     return (
@@ -141,7 +128,7 @@ const ProfileButton = ({ supabase }: SupabaseClientProps): ReactElement => {
   );
 };
 
-const LogoutButton = ({ supabase }: SupabaseClientProps) => {
+const LogoutButton = ({ supabase }: SupabaseClientProps): ReactElement => {
   const t = useTranslations("navbar");
   const router = useRouter();
   const setUser = useUserSessionStore((state) => state.setUser);
@@ -150,7 +137,7 @@ const LogoutButton = ({ supabase }: SupabaseClientProps) => {
     const { error } = await supabase.auth.signOut();
 
     if (error) {
-      throw error;
+      console.log(error);
     }
 
     setUser(null);

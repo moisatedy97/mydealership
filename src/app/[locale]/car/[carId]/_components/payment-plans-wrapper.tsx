@@ -2,6 +2,7 @@
 
 import { parseISO } from "date-fns";
 import { ReactElement } from "react";
+import { Text } from "@radix-ui/themes";
 import useCarOrders from "@/hooks/use-car-orders";
 import PaymentPlans from "./payment-plans";
 import { Tables } from "../../../../../../types/database.types";
@@ -12,9 +13,9 @@ export default function PaymentPlansWrapper({ car }: { car: Tables<"Car"> }): Re
   if (carOrder && carOrder.length > 0) {
     if (carOrder[0].expiredAt && parseISO(carOrder[0].expiredAt) > new Date()) {
       return (
-        <div>
+        <Text>
           You already have a car order for this car. Go in the proflie page to see the details and complete the payment.
-        </div>
+        </Text>
       );
     } else {
       return <PaymentPlans car={car} carOrder={carOrder[0]} />;

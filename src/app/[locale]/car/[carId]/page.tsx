@@ -1,5 +1,6 @@
 import { QueryData, QueryError } from "@supabase/supabase-js";
 import { ReactElement } from "react";
+import { Text } from "@radix-ui/themes";
 import supabaseServer from "@/supabase/config";
 import PaymentPlansWrapper from "./_components/payment-plans-wrapper";
 import CarDetail from "./_components/car-detail";
@@ -8,9 +9,8 @@ export default async function CarDetails({ params }: { params: { carId: string }
   const query = supabaseServer().from("Car").select("*").eq("carId", Number(params.carId));
   const { data, error }: { data: QueryData<typeof query> | null; error: QueryError | null } = await query;
 
-  //TODO handle error
   if (error) {
-    throw error;
+    console.log(error);
   }
 
   if (data && data.length > 0) {
@@ -23,6 +23,6 @@ export default async function CarDetails({ params }: { params: { carId: string }
       </div>
     );
   } else {
-    return <div>Car not found</div>;
+    return <Text>Car not found</Text>;
   }
 }

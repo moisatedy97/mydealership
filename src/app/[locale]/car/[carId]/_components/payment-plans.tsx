@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import { ReactElement, useEffect, useState } from "react";
+import { memo } from "react";
 import { StripePaymentPlan } from "@/app/api/stripe/payment-plans/route";
 import PaymentPlan from "./payment-plan";
 import { Tables } from "../../../../../../types/database.types";
@@ -11,7 +12,7 @@ type PaymentPlansProps = {
   carOrder: Tables<"CarOrder"> | null;
 };
 
-export default function PaymentPlans({ car, carOrder }: PaymentPlansProps): ReactElement | undefined {
+const PaymentPlans = ({ car, carOrder }: PaymentPlansProps): ReactElement | undefined => {
   const [paymentPlans, setPaymentPlans] = useState<StripePaymentPlan[]>([]);
 
   const getPaymentPlans = async () => {
@@ -37,4 +38,6 @@ export default function PaymentPlans({ car, carOrder }: PaymentPlansProps): Reac
       </div>
     );
   }
-}
+};
+
+export default memo(PaymentPlans);

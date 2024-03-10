@@ -17,16 +17,14 @@ export default function Search(): ReactElement {
     if (carFilters) {
       const { data, error } = await constructQuery(carFilters);
 
-      //TODO: handle error
       if (error) {
-        throw error;
+        console.log(error);
       }
 
       if (data && data.length > 0) {
         setCars(data);
       }
     } else {
-      //TODO: handle error
       console.log("No filters selected");
     }
   };

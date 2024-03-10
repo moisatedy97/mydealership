@@ -1,8 +1,7 @@
-import { PostgrestSingleResponse, QueryError } from "@supabase/supabase-js";
+import { QueryError } from "@supabase/supabase-js";
 import { headers } from "next/headers";
 import Stripe from "stripe";
-import supabaseServer from "@/supabase/config";
-import { Tables } from "../../../../../types/database.types";
+import { supabaseFn } from "@/utils/supabase-functions";
 
 export async function POST(req: Request) {
   const webhookSecret = process.env.STRIPE_WEBHOOK_SECRET!;
@@ -20,8 +19,27 @@ export async function POST(req: Request) {
 
           let error: QueryError | null = null;
 
-          error = (await updatePayment(checkoutSession)).error;
-          error = (await updateCarOrder(checkoutSession)).error;
+          error = await supabaseFn.payment.updateBySessionId(
+            {
+              method: checkoutSession.payment_method_types[0],
+              status: checkoutSession.payment_status,
+              updatedAt: new Date().toISOString(),
+              expiredAt: new Date(checkoutSession.expires_at * 1000).toISOString(),
+              currency: checkoutSession.currency ?? "",
+              customerEmail: checkoutSession.customer_details?.email ?? "",
+              country: checkoutSession.customer_details?.address?.country ?? "",
+              phone: checkoutSession.customer_details?.phone ?? "",
+            },
+            checkoutSession.id,
+          );
+
+          error = await supabaseFn.carOrder.updateBySessionId(
+            {
+              status: checkoutSession.status ?? "open",
+              updatedAt: new Date().toISOString(),
+            },
+            checkoutSession.id,
+          );
 
           if (error) {
             return Response.json({ error: error.message }, { status: 500 });
@@ -38,39 +56,3 @@ export async function POST(req: Request) {
 
   return Response.json({ received: true });
 }
-
-const updatePayment = async (
-  stripeSession: Stripe.Checkout.Session,
-): Promise<PostgrestSingleResponse<Tables<"Payment">[]>> => {
-  const query = supabaseServer()
-    .from("Payment")
-    .update({
-      method: stripeSession.payment_method_types[0],
-      status: stripeSession.payment_status,
-      updatedAt: new Date().toISOString(),
-      expiredAt: new Date(stripeSession.expires_at * 1000).toISOString(),
-      currency: stripeSession.currency ?? "",
-      customerEmail: stripeSession.customer_details?.email ?? "",
-      country: stripeSession.customer_details?.address?.country ?? "",
-      phone: stripeSession.customer_details?.phone ?? "",
-    })
-    .eq("sessionId", stripeSession.id)
-    .select();
-
-  return await query;
-};
-
-const updateCarOrder = async (
-  stripeSession: Stripe.Checkout.Session,
-): Promise<PostgrestSingleResponse<Tables<"CarOrder">[]>> => {
-  const query = supabaseServer()
-    .from("CarOrder")
-    .update({
-      status: stripeSession.status ?? "open",
-      updatedAt: new Date().toISOString(),
-    })
-    .eq("sessionId", stripeSession.id)
-    .select();
-
-  return await query;
-};
