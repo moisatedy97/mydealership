@@ -34,7 +34,7 @@ export default function AuthProvider() {
     });
 
     if (error) {
-      throw error;
+      console.error(error);
     }
   };
 

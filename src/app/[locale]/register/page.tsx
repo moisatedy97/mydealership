@@ -9,7 +9,7 @@ export default async function page(): Promise<ReactElement | undefined> {
     await supabaseServer().auth.getSession();
 
   if (error) {
-    throw error;
+    console.error(error);
   }
 
   if (data.session) {
