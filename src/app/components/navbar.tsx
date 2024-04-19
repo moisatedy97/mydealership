@@ -122,6 +122,7 @@ const ProfileButton = ({ supabase }: SupabaseClientProps): ReactElement => {
         </Button>
       </DropdownMenu.Trigger>
       <DropdownMenu.Content>
+        <MenuButton link={"/profile"} style={"ghost"} title={"Info"} />
         <LogoutButton supabase={supabase} />
       </DropdownMenu.Content>
     </DropdownMenu.Root>
