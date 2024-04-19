@@ -14,9 +14,8 @@ export default function SessionProvider(): ReactElement {
     const { data, error }: { data: { session: Session | null }; error: AuthError | null } =
       await supabase.auth.getSession();
 
-    //TODO handle error
     if (error) {
-      console.error("Error reading user session", error);
+      console.error(error);
     }
 
     if (data && data.session) {

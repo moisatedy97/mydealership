@@ -8,7 +8,7 @@ export default async function ManufacturersFilter(): Promise<ReactElement | unde
   const { data, error }: { data: QueryData<typeof query> | null; error: QueryError | null } = await query;
 
   if (error) {
-    throw error;
+    console.error(error);
   }
 
   if (data) {

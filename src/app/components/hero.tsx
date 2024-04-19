@@ -3,9 +3,8 @@
 import { Container, Heading, Text } from "@radix-ui/themes";
 import { useTranslations } from "next-intl";
 import Image from "next/image";
-import React from "react";
 import HeroCards from "./hero-cards";
-import SinglelineCarsFilter from "./singleline-cars-filters";
+import SinglelineCars from "./singleline-cars-filters";
 
 export default function Hero() {
   const t = useTranslations("index");
@@ -19,7 +18,8 @@ export default function Hero() {
         <Text size="6" color="gray">
           {t("sentence")}
         </Text>
-        <SinglelineCarsFilter />
+
+        <SinglelineCars />
         <Image
           src="https://www.apexspares.com/cdn/shop/collections/por3__67065_1200x1200.png?v=1639558726"
           alt="Porsche GT3"

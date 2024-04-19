@@ -16,7 +16,7 @@ export default async function middleware(req: NextRequest) {
   const { error }: { data: { session: Session | null }; error: AuthError | null } = await supabase.auth.getSession();
 
   if (error) {
-    throw error;
+    console.error(error);
   }
 
   return res;
