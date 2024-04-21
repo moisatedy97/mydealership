@@ -28,6 +28,58 @@
       }
     }
   },
+  "car": {
+    "filters": "Filters",
+    "year": "Year",
+    "price": "Price",
+    "torque": "Torque",
+    "km": "Km",
+    "km_per_liter_city": "Km/L (City)",
+    "km_per_liter_highway": "Km/L (Highway)",
+    "engine_type": "Engine type",
+    "transmission_type": "Transmission type",
+    "fuel_type": "Fuel type",
+    "status": "Status",
+    "payment_plans": {
+      "buy_now": "Buy now!",
+      "block_car": "Block your car",
+      "order_created": "Order created!",
+      "visit_profile": "Visit profile",
+      "proced_to_payment": "Proced to payment",
+      "discover_plans": "Discover our plans",
+      "discover_plans_description": "You found your favorite car? Block it now!"
+    }
+  },
+  "cars": {
+    "filters": "Filters",
+    "car": "Car",
+    "filter_car": "Filter car and see the results",
+    "search": "Search for the car...",
+    "view_details": "View details",
+    "search_by_title": "Search by title",
+    "transmission_type": "Transmission type",
+    "torque": "Torque",
+    "status": "Status",
+    "price": "Price",
+    "model": "Model",
+    "manufacturer": "Manufacturer",
+    "km_per_liter_highway": "Km/L (Highway)",
+    "km_per_liter_city": "Km/L (City)",
+    "km": "Km",
+    "horsepower": "Horsepower",
+    "fuel_type": "Fuel type",
+    "engine_type": "Engine type",
+    "category": "Category"
+  },
+  "orders": {
+    "payments": {
+      "car_name": "Car name",
+      "plan": "Plan",
+      "status": "Status",
+      "actions": "Actions",
+      "pay_now": "Pay now"
+    }
+  },
   "navbar": {
     "menu": {
       "home": "Homepage",
@@ -36,6 +88,7 @@
       "cars": "Cars",
       "user": {
         "profile": "Profile",
+        "orders": "Orders",
         "logout": "Logout"
       }
     }

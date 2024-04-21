@@ -4,11 +4,13 @@ import { QueryData, QueryError } from "@supabase/supabase-js";
 import React, { ReactElement, useEffect, useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { Select } from "@radix-ui/themes";
+import { useTranslations } from "next-intl";
 import { useCarFiltersStore } from "@/stores/car-filters-store";
 import { Tables } from "../../../../../types/database.types";
 import { Database } from "../../../../../types/supabase";
 
 export default function ModelFilter(): ReactElement | undefined {
+  const t = useTranslations("cars");
   const supabase = createClientComponentClient<Database>();
   const { manufacturer, setModel } = useCarFiltersStore((state) => ({
     manufacturer: state.carFilters?.manufacturer,
@@ -42,10 +44,10 @@ export default function ModelFilter(): ReactElement | undefined {
   if (manufacturer && manufacturer > 0 && carModels.length > 0) {
     return (
       <Select.Root onValueChange={(value: string) => setModel(Number(value))}>
-        <Select.Trigger placeholder="Pick a model" />
+        <Select.Trigger placeholder={t("model")} />
         <Select.Content>
           <Select.Group>
-            <Select.Label>Models</Select.Label>
+            <Select.Label>{t("model")}</Select.Label>
             {carModels.map((model: Tables<"CarModel">, index: number) => (
               <Select.Item key={index} value={model.carModelId.toString()}>
                 {model.name}

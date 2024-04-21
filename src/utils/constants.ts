@@ -3,6 +3,20 @@ import { RangeFiltersType } from "@/interfaces/range-filter-interface";
 import { Enums } from "../../types/database.types";
 
 export const EnabledProviders: Provider[] = ["github", "google"];
+export const Providers = [
+  {
+    key: "github",
+    name: "Github",
+    url: "https://github.com/",
+    icon: "/providers/github.png",
+  },
+  {
+    key: "google",
+    name: "Google",
+    url: "https://google.com/",
+    icon: "/providers/google.png",
+  },
+];
 export const EngineTypes: Enums<"car_engine_type">[] = ["Combustion", "Electric", "Hybrid"];
 export const TransmissionTypes: Enums<"car_transmission_type">[] = ["Automatic", "Manual"];
 export const FuelTypes: Enums<"car_fuel_type">[] = ["Diesel", "Petrol", "Hydrogen", "Electricity", "LPG", "Methane"];

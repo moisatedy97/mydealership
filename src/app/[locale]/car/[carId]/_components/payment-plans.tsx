@@ -4,6 +4,7 @@ import axios from "axios";
 import { ReactElement, useEffect, useState } from "react";
 import { memo } from "react";
 import { Heading, Text } from "@radix-ui/themes";
+import { useTranslations } from "next-intl";
 import { StripePaymentPlan } from "@/app/api/stripe/payment-plans/route";
 import PaymentPlan from "./payment-plan";
 import { Tables } from "../../../../../../types/database.types";
@@ -14,6 +15,7 @@ type PaymentPlansProps = {
 };
 
 const PaymentPlans = ({ car, carOrder }: PaymentPlansProps): ReactElement | undefined => {
+  const t = useTranslations("car");
   const [paymentPlans, setPaymentPlans] = useState<StripePaymentPlan[]>([]);
 
   const getPaymentPlans = async () => {
@@ -35,10 +37,10 @@ const PaymentPlans = ({ car, carOrder }: PaymentPlansProps): ReactElement | unde
       <div className="py-16">
         <div className="mb-5 text-center">
           <Heading size="8" as="h1" className="mb-3">
-            Discover our plans
+            {t("payment_plans.discover_plans")}
           </Heading>
-          <Text as="p" color="gray">
-            Filters plans
+          <Text as="div" size="3">
+            {t("payment_plans.discover_plans_description")}
           </Text>
         </div>
         <div className="justify-center gap-4 md:flex">

@@ -2,10 +2,12 @@
 
 import { Slider } from "@radix-ui/themes";
 import React, { ReactElement } from "react";
+import { useTranslations } from "next-intl";
 import { useCarFiltersStore } from "@/stores/car-filters-store";
 import { TorqueRangeTypes } from "@/utils/constants";
 
 export default function TorqueFilter(): ReactElement {
+  const t = useTranslations("cars");
   const { torque, setTorque } = useCarFiltersStore((state) => ({
     torque: state.carFilters?.torque,
     setTorque: state.setCarFilterTorqueRange,
@@ -19,8 +21,8 @@ export default function TorqueFilter(): ReactElement {
   };
 
   return (
-    <div>
-      <div>{`Torque ${torque ? torque.from : TorqueRangeTypes.from} - ${torque ? torque.to : TorqueRangeTypes.to}`}</div>
+    <div className="flex flex-col gap-1">
+      <div>{`${t("torque")} ${torque ? torque.from : TorqueRangeTypes.from} - ${torque ? torque.to : TorqueRangeTypes.to}`}</div>
       <Slider
         min={TorqueRangeTypes.from}
         max={TorqueRangeTypes.to}

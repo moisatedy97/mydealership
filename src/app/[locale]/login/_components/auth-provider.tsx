@@ -4,7 +4,8 @@ import { AuthError, Provider } from "@supabase/supabase-js";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import React from "react";
 import { Button } from "@radix-ui/themes";
-import { EnabledProviders } from "@/utils/constants";
+import Image from "next/image";
+import { EnabledProviders, Providers } from "@/utils/constants";
 import { Database } from "../../../../../types/supabase";
 
 export default function AuthProvider() {
@@ -39,17 +40,22 @@ export default function AuthProvider() {
   };
 
   return (
-    <div className="flex gap-1">
+    <div className="flex flex-col gap-2 pt-2">
       {EnabledProviders.map((provider: Provider, index: number) => {
+        const providerData = Providers.find((pProvider) => pProvider.key === provider);
+
         return (
           <Button
             variant="outline"
-            className="cursor-pointer"
+            className="w-full cursor-pointer"
             key={index}
             value={provider}
             onClick={handleAuthProviderOnClick}
           >
-            {provider}
+            <div className="flex items-center gap-2">
+              <Image src={providerData!.icon} alt={providerData!.name} width={24} height={24} />
+              {providerData!.name}
+            </div>
           </Button>
         );
       })}

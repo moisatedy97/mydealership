@@ -2,10 +2,12 @@
 
 import { Slider } from "@radix-ui/themes";
 import React, { ReactElement } from "react";
+import { useTranslations } from "next-intl";
 import { useCarFiltersStore } from "@/stores/car-filters-store";
 import { KmRangeTypes } from "@/utils/constants";
 
 export default function KmFilter(): ReactElement {
+  const t = useTranslations("cars");
   const { km, setKm } = useCarFiltersStore((state) => ({
     km: state.carFilters?.km,
     setKm: state.setCarFilterKmRange,
@@ -19,8 +21,8 @@ export default function KmFilter(): ReactElement {
   };
 
   return (
-    <div>
-      <div>{`Km ${km ? km.from : KmRangeTypes.from} - ${km ? km.to : KmRangeTypes.to}`}</div>
+    <div className="flex flex-col gap-1">
+      <div>{`${t("km")} ${km ? km.from : KmRangeTypes.from} - ${km ? km.to : KmRangeTypes.to}`}</div>
       <Slider
         min={KmRangeTypes.from}
         max={KmRangeTypes.to}

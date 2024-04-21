@@ -4,12 +4,14 @@ import { Button } from "@radix-ui/themes";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { SearchIcon } from "lucide-react";
 import React, { ReactElement } from "react";
+import { useTranslations } from "next-intl";
 import { CarFiltersType } from "@/interfaces/car-filters-interface";
 import { useCarFiltersStore } from "@/stores/car-filters-store";
 import { useCarsStore } from "@/stores/cars-store";
 import { Database } from "../../../../types/supabase";
 
 export default function Search(): ReactElement {
+  const t = useTranslations("cars");
   const carFilters = useCarFiltersStore((state) => state.carFilters);
   const setCars = useCarsStore((state) => state.setCars);
 
@@ -32,7 +34,7 @@ export default function Search(): ReactElement {
   return (
     <Button onClick={handleSearch} className="cursor-pointer">
       <SearchIcon width="16" height="16" />
-      Search
+      {t("search")}
     </Button>
   );
 }

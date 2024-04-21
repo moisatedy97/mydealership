@@ -4,6 +4,7 @@ import React, { ReactElement } from "react";
 import { Badge, Button, Card, Flex, Heading, Inset, Text } from "@radix-ui/themes";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { Tables } from "../../../../../types/database.types";
 
 type CarCardProps = {
@@ -11,6 +12,7 @@ type CarCardProps = {
 };
 
 export default function CarCard({ car }: CarCardProps): ReactElement {
+  const t = useTranslations("cars");
   const router = useRouter();
 
   const handleCardClick = () => {
@@ -57,7 +59,7 @@ export default function CarCard({ car }: CarCardProps): ReactElement {
           </Badge>
         </Flex>
         <Button size="2" variant="surface" onClick={handleCardClick} className="cursor-pointer">
-          View Details
+          {t("view_details")}
         </Button>
       </div>
     </Card>

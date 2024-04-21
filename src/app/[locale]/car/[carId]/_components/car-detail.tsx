@@ -3,6 +3,7 @@
 import { ReactElement } from "react";
 import { Card, Heading, Table, Text } from "@radix-ui/themes";
 import Image from "next/image";
+import { useTranslations } from "next-intl";
 import { Tables } from "../../../../../../types/database.types";
 import { CarCarousel } from "./car-carousel";
 import "./css/embla.css";
@@ -12,12 +13,14 @@ type CarDetailProps = {
 };
 
 export default function CarDetail({ data }: CarDetailProps): ReactElement {
+  const t = useTranslations("car");
+
   return (
     <div className="gap-4 md:flex">
       <div className="md:w-1/4">
         <Card>
           <Heading size="6" as="h1" className="mb-3">
-            Filters
+            {t("filters")}
           </Heading>
           <CarDetailSummary data={data} />
         </Card>
@@ -46,45 +49,47 @@ export default function CarDetail({ data }: CarDetailProps): ReactElement {
 }
 
 const CarDetailSummary = ({ data }: CarDetailProps) => {
+  const t = useTranslations("car");
+
   const tableData = [
     {
-      title: "year",
+      title: t("year"),
       value: data.year,
     },
     {
-      title: "Price",
+      title: t("price"),
       value: data.price,
     },
     {
-      title: "torque",
+      title: t("torque"),
       value: data.torque,
     },
     {
-      title: "Km",
+      title: t("km"),
       value: data.km,
     },
     {
-      title: "km per liter city",
+      title: t("km_per_liter_city"),
       value: data.kmPerLiterCity,
     },
     {
-      title: "km per liter highway",
+      title: t("km_per_liter_highway"),
       value: data.kmPerLiterHighway,
     },
     {
-      title: "engine type",
+      title: t("engine_type"),
       value: data.engineType,
     },
     {
-      title: "trasmission type",
+      title: t("transmission_type"),
       value: data.transmissionType,
     },
     {
-      title: "fuel Type",
+      title: t("fuel_type"),
       value: data.fuelType,
     },
     {
-      title: "Status",
+      title: t("status"),
       value: data.status,
     },
   ];
@@ -93,8 +98,8 @@ const CarDetailSummary = ({ data }: CarDetailProps) => {
     <Table.Root>
       <Table.Header>
         <Table.Row>
-          <Table.ColumnHeaderCell>label</Table.ColumnHeaderCell>
-          <Table.ColumnHeaderCell>data</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell>Label</Table.ColumnHeaderCell>
+          <Table.ColumnHeaderCell>Data</Table.ColumnHeaderCell>
         </Table.Row>
       </Table.Header>
       <Table.Body>

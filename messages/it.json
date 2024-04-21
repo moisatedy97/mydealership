@@ -28,6 +28,58 @@
       }
     }
   },
+  "car": {
+    "filters": "Filtri",
+    "year": "Anno",
+    "price": "Prezzo",
+    "torque": "Coppia",
+    "km": "Km",
+    "km_per_liter_city": "Km/L (Città)",
+    "km_per_liter_highway": "Km/L (Strada)",
+    "engine_type": "Tipo di motore",
+    "transmission_type": "Tipo di trasmissione",
+    "fuel_type": "Tipo di carburante",
+    "status": "Stato",
+    "payment_plans": {
+      "buy_now": "Acquista ora!",
+      "block_car": "Blocca la tua auto",
+      "order_created": "Ordine creato!",
+      "visit_profile": "Visita il tuo profilo",
+      "proced_to_payment": "Procedi al pagamento",
+      "discover_plans": "Scopri i nostri piani",
+      "discover_plans_description": "Ti interessa la nostra auto? Bloccala ora!"
+    }
+  },
+  "cars": {
+    "filters": "Filtri",
+    "car": "Auto",
+    "filter_car": "Filtra auto e vedi i risultati",
+    "search": "Cerca auto...",
+    "view_details": "Vedi dettagli",
+    "search_by_title": "Cerca per titolo",
+    "transmission_type": "Tipo di trasmissione",
+    "torque": "Coppia",
+    "status": "Stato",
+    "price": "Prezzo",
+    "model": "Modello",
+    "manufacturer": "Marca",
+    "km_per_liter_highway": "Km/L (Strada)",
+    "km_per_liter_city": "Km/L (Città)",
+    "km": "Km",
+    "horsepower": "Potenza",
+    "fuel_type": "Tipo di carburante",
+    "engine_type": "Tipo di motore",
+    "category": "Categoria"
+  },
+  "orders": {
+    "payments": {
+      "car_name": "Nome auto",
+      "plan": "Piano",
+      "status": "Stato",
+      "actions": "Azioni",
+      "pay_now": "Paga ora"
+    }
+  },
   "navbar": {
     "menu": {
       "home": "Pagina Iniziale",
@@ -36,6 +88,7 @@
       "cars": "Macchine",
       "user": {
         "profile": "Profilo",
+        "orders": "Ordini",
         "logout": "Esci"
       }
     }

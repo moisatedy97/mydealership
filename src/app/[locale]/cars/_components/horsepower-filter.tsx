@@ -2,10 +2,12 @@
 
 import { Slider } from "@radix-ui/themes";
 import React, { ReactElement } from "react";
+import { useTranslations } from "next-intl";
 import { useCarFiltersStore } from "@/stores/car-filters-store";
 import { HorsepowerRangeTypes } from "@/utils/constants";
 
 export default function HorsepowerFilter(): ReactElement {
+  const t = useTranslations("cars");
   const { horsepower, setHorsepower } = useCarFiltersStore((state) => ({
     horsepower: state.carFilters?.horsepower,
     setHorsepower: state.setCarFilterHorsepowerRange,
@@ -19,8 +21,8 @@ export default function HorsepowerFilter(): ReactElement {
   };
 
   return (
-    <div>
-      <div>{`Horsepower ${horsepower ? horsepower.from : HorsepowerRangeTypes.from} - ${horsepower ? horsepower.to : HorsepowerRangeTypes.to}`}</div>
+    <div className="flex flex-col gap-1">
+      <div>{`${t("horsepower")} ${horsepower ? horsepower.from : HorsepowerRangeTypes.from} - ${horsepower ? horsepower.to : HorsepowerRangeTypes.to}`}</div>
       <Slider
         min={HorsepowerRangeTypes.from}
         max={HorsepowerRangeTypes.to}

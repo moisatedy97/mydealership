@@ -2,10 +2,12 @@
 
 import { Slider } from "@radix-ui/themes";
 import React, { ReactElement } from "react";
+import { useTranslations } from "next-intl";
 import { useCarFiltersStore } from "@/stores/car-filters-store";
 import { KmPerLiterCityRangeTypes } from "@/utils/constants";
 
 export default function KmPerLiterCityFilter(): ReactElement {
+  const t = useTranslations("cars");
   const { kmPerLiterCity, setKmPerLiterCity } = useCarFiltersStore((state) => ({
     kmPerLiterCity: state.carFilters?.kmPerLiterCity,
     setKmPerLiterCity: state.setCarFilterKmPerLiterCityRange,
@@ -19,8 +21,8 @@ export default function KmPerLiterCityFilter(): ReactElement {
   };
 
   return (
-    <div>
-      <div>{`KmPerLiterCity ${kmPerLiterCity ? kmPerLiterCity.from : KmPerLiterCityRangeTypes.from} - ${kmPerLiterCity ? kmPerLiterCity.to : KmPerLiterCityRangeTypes.to}`}</div>
+    <div className="flex flex-col gap-1">
+      <div>{`${t("km_per_liter_city")} ${kmPerLiterCity ? kmPerLiterCity.from : KmPerLiterCityRangeTypes.from} - ${kmPerLiterCity ? kmPerLiterCity.to : KmPerLiterCityRangeTypes.to}`}</div>
       <Slider
         min={KmPerLiterCityRangeTypes.from}
         max={KmPerLiterCityRangeTypes.to}

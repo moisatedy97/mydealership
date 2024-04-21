@@ -2,6 +2,7 @@
 
 import React, { ReactElement } from "react";
 import { Select } from "@radix-ui/themes";
+import { useTranslations } from "next-intl";
 import { useCarFiltersStore } from "@/stores/car-filters-store";
 import { Tables } from "../../../../../types/database.types";
 
@@ -10,14 +11,15 @@ type PropsCategorySelect = {
 };
 
 export default function CategorySelect({ categories }: PropsCategorySelect): ReactElement {
+  const t = useTranslations("cars");
   const setCategory = useCarFiltersStore((state) => state.setCarFilterCategory);
 
   return (
     <Select.Root onValueChange={(value: string) => setCategory(Number(value))}>
-      <Select.Trigger placeholder="Pick a category" />
+      <Select.Trigger placeholder={t("category")} />
       <Select.Content>
         <Select.Group>
-          <Select.Label>Categories</Select.Label>
+          <Select.Label>{t("category")}</Select.Label>
           {categories.map((category: Tables<"Category">, index: number) => (
             <Select.Item key={index} value={category.categoryId.toString()}>
               {category.name}
