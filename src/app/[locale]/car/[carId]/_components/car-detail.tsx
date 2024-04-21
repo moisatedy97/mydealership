@@ -36,9 +36,10 @@ export default function CarDetail({ data }: CarDetailProps): ReactElement {
           ) : (
             <Image
               src={"https://fakeimg.pl/600x400/f0f0f0/dbdbdb?text=Car+image+missing"}
-              alt={""}
+              alt={`${data.carId}`}
               width={1080}
               height={1080}
+              priority={true}
               className="h-auto w-full"
             />
           )}

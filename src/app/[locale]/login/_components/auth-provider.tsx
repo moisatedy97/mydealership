@@ -53,7 +53,7 @@ export default function AuthProvider() {
             onClick={handleAuthProviderOnClick}
           >
             <div className="flex items-center gap-2">
-              <Image src={providerData!.icon} alt={providerData!.name} width={24} height={24} />
+              <Image src={providerData!.icon} alt={providerData!.name} priority={true} width={24} height={24} />
               {providerData!.name}
             </div>
           </Button>

@@ -24,9 +24,10 @@ export default function CarCard({ car }: CarCardProps): ReactElement {
       <Inset clip="padding-box" side="top" pb="current">
         <Image
           src={car.images[0] || "https://fakeimg.pl/600x400/f0f0f0/dbdbdb?text=Car+image+missing"}
-          alt={""}
+          alt={`${car.carId}`}
           width={1080}
           height={1080}
+          priority={true}
           className="h-auto w-full"
           id="carousel-selected-image"
           style={{

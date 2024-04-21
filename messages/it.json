@@ -47,7 +47,9 @@
       "visit_profile": "Visita il tuo profilo",
       "proced_to_payment": "Procedi al pagamento",
       "discover_plans": "Scopri i nostri piani",
-      "discover_plans_description": "Ti interessa la nostra auto? Bloccala ora!"
+      "discover_plans_description": "Ti interessa la nostra auto? Bloccala ora!",
+      "order_exists": "Hai già un ordine per questa auto. Vai nella pagina dei tuoi ordini per vedere i dettagli e completare il pagamento.",
+      "visit_orders": "Visita pagina ordini"
     }
   },
   "cars": {

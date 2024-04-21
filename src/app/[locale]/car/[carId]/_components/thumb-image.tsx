@@ -11,7 +11,7 @@ export default function ThumbImage({ selected, onClick, slide }: ThumbImageProps
   return (
     <div className={"embla-thumbs__slide".concat(selected ? " embla-thumbs__slide--selected" : "")}>
       <button onClick={onClick} type="button" className="embla-thumbs__slide__number">
-        <Image src={slide} alt={""} width={1080} height={1080} className="h-auto w-full" />
+        <Image src={slide} alt={`${slide}`} priority={true} width={1080} height={1080} className="h-auto w-full" />
       </button>
     </div>
   );

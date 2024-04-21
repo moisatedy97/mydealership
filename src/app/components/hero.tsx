@@ -23,8 +23,9 @@ export default function Hero() {
         <Image
           src="https://www.apexspares.com/cdn/shop/collections/por3__67065_1200x1200.png?v=1639558726"
           alt="Porsche GT3"
-          width="1080"
+          width={"1080"}
           height={"1080"}
+          priority={true}
         />
         {/* <Canvas dpr={[1, 2]} shadows camera={{ fov: 45 }} style={{ position: "relative", width: 700, height: 400 }}>
           <PresentationControls>

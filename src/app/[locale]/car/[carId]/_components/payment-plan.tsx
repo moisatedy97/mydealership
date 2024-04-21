@@ -2,6 +2,7 @@ import { Button, Callout, Card, Flex, Link, Text } from "@radix-ui/themes";
 import axios, { AxiosResponse } from "axios";
 import { ReactElement, useState } from "react";
 import Stripe from "stripe";
+import { redirect } from "next/navigation";
 import { useTranslations } from "next-intl";
 import { StripePaymentPlan } from "@/app/api/stripe/payment-plans/route";
 import { StripeCheckoutData } from "@/interfaces/stripe-checkout-data";
@@ -54,8 +55,8 @@ const PaymentPlan = ({ car, carOrder, paymentPlan }: PaymentPlanProps): ReactEle
     }
   };
 
-  const handleClickProfile = () => {
-    console.log("GO TO PROFILE");
+  const handleClickOrdersPage = () => {
+    redirect("/orders");
   };
 
   const handleBuyNow = async () => {
@@ -101,11 +102,10 @@ const PaymentPlan = ({ car, carOrder, paymentPlan }: PaymentPlanProps): ReactEle
           </Button>
           {isOpen && (
             <Callout.Root className="mt-3">
-              <Callout.Icon></Callout.Icon>
               <Callout.Text>
                 {t("payment_plans.order_created")}
                 <div className="flex flex-wrap gap-x-3">
-                  <Link onClick={handleClickProfile}>{t("payment_plans.visit_profile")}</Link>
+                  <Link onClick={handleClickOrdersPage}>{t("payment_plans.visit_orders")}</Link>
                   <Link onClick={handleBuyNow}>{t("payment_plans.proced_to_payment")}</Link>
                 </div>
               </Callout.Text>

@@ -46,9 +46,10 @@ export const CarCarousel = ({ slides }: CarCarouselProps): ReactElement => {
             <div className="embla__slide" key={index}>
               <Image
                 src={slide}
-                alt={""}
+                alt={`${index}`}
                 width={1080}
                 height={1080}
+                priority={true}
                 className="h-auto w-full"
                 id="carousel-selected-image"
               />

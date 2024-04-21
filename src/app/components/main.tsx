@@ -56,7 +56,7 @@ const CardSection = () => {
       {cards.map((element: Card, index: number) => (
         <div className="card image-full bg-base-100 shadow-xl" key={index}>
           <figure>
-            <Image src={element.image.src} width={1080} height={1080} alt={element.image.alt} />
+            <Image src={element.image.src} priority={true} width={1080} height={1080} alt={element.image.alt} />
           </figure>
           <div className="card-body">
             <h2 className="card-title text-5xl  font-extrabold">{element.title}</h2>

@@ -2,12 +2,14 @@
 
 import { parseISO } from "date-fns";
 import { ReactElement } from "react";
+import { useTranslations } from "next-intl";
 import { Callout, Link } from "@radix-ui/themes";
 import useCarOrders from "@/hooks/use-car-orders";
 import PaymentPlans from "./payment-plans";
 import { Tables } from "../../../../../../types/database.types";
 
 export default function PaymentPlansWrapper({ car }: { car: Tables<"Car"> }): ReactElement | undefined {
+  const t = useTranslations("car");
   const carOrder = useCarOrders(car.carId);
 
   if (carOrder && carOrder.length > 0) {
@@ -15,10 +17,8 @@ export default function PaymentPlansWrapper({ car }: { car: Tables<"Car"> }): Re
       return (
         <Callout.Root className="mt-3" color="yellow">
           <Callout.Icon></Callout.Icon>
-          <Callout.Text>
-            You already have a car order for this car. Go in <Link href="/profile">Visit profile</Link> to see the
-            details and complete the payment.
-          </Callout.Text>
+          <Callout.Text>{t("payment_plans.order_exists")}</Callout.Text>
+          <Link href="/orders">{t("payment_plans.visit_orders")}</Link>
         </Callout.Root>
       );
     } else {

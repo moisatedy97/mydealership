@@ -47,7 +47,9 @@
       "visit_profile": "Visit profile",
       "proced_to_payment": "Proced to payment",
       "discover_plans": "Discover our plans",
-      "discover_plans_description": "You found your favorite car? Block it now!"
+      "discover_plans_description": "You found your favorite car? Block it now!",
+      "order_exists": "You already have a car order for this car. Visit our orders page to see the details and complete the payment.",
+      "visit_orders": "Visit orders page"
     }
   },
   "cars": {
